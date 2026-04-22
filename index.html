@@ -1,0 +1,1732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Argument Training — Fallacy ID & Sparring</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f1e7;
+    --bg-2:#efe7d6;
+    --ink:#1a1a1a;
+    --ink-soft:#3a3a3a;
+    --muted:#6b6558;
+    --line:#1a1a1a;
+    --paper:#fffdf7;
+    --accent:#b33b1e;         /* burnt red */
+    --accent-2:#0e3b5c;        /* deep indigo */
+    --mustard:#c99a1f;
+    --green:#3d6a42;
+    --rule:#1a1a1a;
+    --shadow: 0 1px 0 #1a1a1a, 3px 3px 0 #1a1a1a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter", system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+  }
+  a{color:var(--accent-2);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1.5px}
+  a:hover{color:var(--accent)}
+  .serif{font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 24px 64px}
+  header.masthead{
+    border-bottom:3px solid var(--line);
+    padding-bottom:14px;
+    display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;
+    margin-bottom:18px;
+  }
+  .masthead h1{
+    font-family:"Fraunces",Georgia,serif;
+    font-weight:800;
+    font-size:clamp(32px,4.4vw,48px);
+    line-height:1;
+    letter-spacing:-.02em;
+    margin:0;
+  }
+  .masthead .kicker{
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .masthead .stats{
+    display:flex;gap:18px;align-items:center;
+    font-family:"JetBrains Mono",monospace;
+    font-size:12px;color:var(--ink-soft);
+  }
+  .masthead .stats .stat{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+  .masthead .stats .stat b{font-size:20px;color:var(--ink);font-weight:700}
+  nav.tabs{
+    display:flex;gap:4px;border-bottom:1px solid var(--line);
+    margin-bottom:22px;
+    overflow-x:auto;
+  }
+  nav.tabs button{
+    background:transparent;border:none;
+    padding:10px 14px;
+    font-family:"Fraunces",serif;font-size:17px;font-weight:600;
+    color:var(--muted);cursor:pointer;
+    border-bottom:3px solid transparent;
+    margin-bottom:-1px;
+    white-space:nowrap;
+  }
+  nav.tabs button:hover{color:var(--ink)}
+  nav.tabs button.active{color:var(--ink);border-bottom-color:var(--accent)}
+  .panel{display:none}
+  .panel.active{display:block}
+  .card{
+    background:var(--paper);
+    border:2px solid var(--line);
+    box-shadow:var(--shadow);
+    padding:22px 24px;
+    margin-bottom:18px;
+  }
+  .card h2{font-family:"Fraunces",serif;font-weight:700;letter-spacing:-.01em;margin:0 0 8px;font-size:28px}
+  .card h3{font-family:"Fraunces",serif;font-weight:700;margin:0 0 6px;font-size:20px}
+  .card p{margin:0 0 10px}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .chip{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;
+    padding:4px 8px;border:1px solid var(--line);background:var(--bg-2);
+    text-transform:uppercase;letter-spacing:.06em;
+  }
+  .chip.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .chip.indigo{background:var(--accent-2);color:#fff;border-color:var(--accent-2)}
+  .chip.mustard{background:var(--mustard);color:#1a1a1a;border-color:var(--mustard)}
+  .chip.green{background:var(--green);color:#fff;border-color:var(--green)}
+  .btn{
+    font-family:"Inter",sans-serif;font-weight:600;font-size:14px;
+    padding:10px 16px;border:2px solid var(--line);background:var(--paper);
+    cursor:pointer;box-shadow:2px 2px 0 var(--line);
+    transition:transform .05s ease;
+  }
+  .btn:hover{background:var(--bg-2)}
+  .btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--line)}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn.primary:hover{background:#333}
+  .btn.accent{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:2px 2px 0 #1a1a1a}
+  .btn.accent:hover{background:#932f17}
+  .btn.ghost{border-color:var(--muted);box-shadow:none;background:transparent}
+  .btn.ghost:hover{background:var(--bg-2)}
+  .btn.small{padding:6px 10px;font-size:12px}
+  select,input[type=text]{
+    font-family:"Inter",sans-serif;font-size:14px;
+    padding:8px 10px;border:2px solid var(--line);background:var(--paper);
+  }
+  .argument-box{
+    background:var(--bg-2);border-left:5px solid var(--accent);
+    padding:16px 18px;margin:12px 0;
+    font-family:"Fraunces",serif;font-size:19px;line-height:1.5;
+    font-style:italic;
+  }
+  .choices{display:grid;gap:8px;margin:14px 0}
+  .choice{
+    text-align:left;padding:12px 14px;border:2px solid var(--line);
+    background:var(--paper);cursor:pointer;font-size:15px;
+    display:flex;align-items:flex-start;gap:10px;
+  }
+  .choice:hover{background:var(--bg-2)}
+  .choice .letter{
+    font-family:"JetBrains Mono",monospace;font-weight:700;
+    background:var(--ink);color:var(--paper);
+    width:22px;height:22px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex:0 0 22px;
+  }
+  .choice.selected{background:var(--bg-2);border-color:var(--accent-2);box-shadow:inset 0 0 0 2px var(--accent-2)}
+  .choice.correct{background:#e8f0e5;border-color:var(--green)}
+  .choice.correct .letter{background:var(--green)}
+  .choice.wrong{background:#fadfd8;border-color:var(--accent)}
+  .choice.wrong .letter{background:var(--accent)}
+  .verdict{
+    padding:14px 16px;border:2px dashed var(--line);
+    background:#fffaea;margin-top:12px;
+  }
+  .verdict.correct{border-color:var(--green);background:#edf5e9}
+  .verdict.wrong{border-color:var(--accent);background:#fbeae4}
+  .verdict h4{font-family:"Fraunces",serif;font-size:18px;margin:0 0 6px}
+  .verdict .counter{margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.15);font-size:14px}
+  .meta-line{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .scoreboard{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;
+    margin:14px 0;
+  }
+  .scorebox{
+    background:var(--bg-2);border:2px solid var(--line);padding:10px 12px;
+  }
+  .scorebox .n{font-family:"Fraunces",serif;font-size:32px;font-weight:700;line-height:1}
+  .scorebox .l{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  /* Chat */
+  .chat-shell{display:grid;grid-template-columns:1fr;gap:14px}
+  .scenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+  .scenario-card{
+    background:var(--paper);border:2px solid var(--line);padding:14px;
+    cursor:pointer;box-shadow:2px 2px 0 var(--line);
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .scenario-card:hover{background:var(--bg-2)}
+  .scenario-card h4{margin:0;font-family:"Fraunces",serif;font-size:17px}
+  .scenario-card p{margin:0;font-size:13px;color:var(--ink-soft)}
+  .chat-window{
+    background:var(--paper);border:2px solid var(--line);box-shadow:var(--shadow);
+    min-height:360px;padding:16px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .chat-log{display:flex;flex-direction:column;gap:10px;max-height:460px;overflow-y:auto;padding-right:4px}
+  .bubble{
+    max-width:86%;padding:10px 14px;border:2px solid var(--line);
+    font-size:15px;line-height:1.45;
+  }
+  .bubble.bot{
+    background:var(--bg-2);align-self:flex-start;
+    border-top-left-radius:0;
+  }
+  .bubble.user{
+    background:var(--ink);color:var(--paper);align-self:flex-end;
+    border-top-right-radius:0;
+  }
+  .bubble.system{
+    background:#fffaea;align-self:stretch;
+    font-family:"JetBrains Mono",monospace;font-size:12px;
+  }
+  .bubble .who{
+    font-family:"JetBrains Mono",monospace;font-size:10px;
+    letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:4px;
+  }
+  .chat-controls{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+  .chat-choices{display:grid;gap:6px}
+  .chat-choice{
+    text-align:left;padding:10px 12px;background:var(--paper);border:2px solid var(--line);
+    cursor:pointer;font-size:14px;
+  }
+  .chat-choice:hover{background:var(--bg-2)}
+  /* Reference */
+  .ref-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+  .ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+  .fallacy-card{
+    background:var(--paper);border:2px solid var(--line);padding:14px;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .fallacy-card h4{margin:0;font-family:"Fraunces",serif;font-size:18px}
+  .fallacy-card .cat{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .fallacy-card .def{font-size:14px;color:var(--ink-soft)}
+  .fallacy-card .ex{font-size:13px;font-style:italic;padding-left:10px;border-left:3px solid var(--mustard)}
+  .fallacy-card .cm{font-size:13px;padding-left:10px;border-left:3px solid var(--green)}
+  footer.footpiece{
+    margin-top:30px;border-top:2px solid var(--line);padding-top:14px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+  }
+  .hidden{display:none!important}
+  .flex-end{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+  .tiny{font-size:12px;color:var(--muted)}
+  .divider{height:1px;background:var(--line);margin:14px 0}
+  .pill-group{display:flex;flex-wrap:wrap;gap:6px}
+  @media (max-width:640px){
+    .wrap{padding:18px 14px 60px}
+    .masthead .stats{font-size:11px;gap:10px}
+    .card{padding:18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div>
+    <div class="kicker">Argument Training / Fallacy Identification &amp; Counter-Argument Practice</div>
+    <h1 class="serif">Sharper Tongue.</h1>
+  </div>
+  <div class="stats" id="topStats">
+    <div class="stat"><b id="stAsked">0</b><span>asked</span></div>
+    <div class="stat"><b id="stCorrect">0</b><span>nailed</span></div>
+    <div class="stat"><b id="stAcc">—</b><span>accuracy</span></div>
+    <div class="stat"><b id="stStreak">0</b><span>streak</span></div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="home" class="active">Start</button>
+  <button data-tab="quiz">Quiz</button>
+  <button data-tab="spar">Sparring</button>
+  <button data-tab="steel">Steel Man</button>
+  <button data-tab="ref">Fallacy Reference</button>
+  <button data-tab="stats">Progress</button>
+</nav>
+
+<!-- HOME -->
+<section class="panel active" id="panel-home">
+  <div class="card">
+    <h2 class="serif">A workshop for picking apart bad arguments.</h2>
+    <p>This is a training room for three skills: <b>spotting logical fallacies</b> in the wild, <b>countering bad arguments</b> without sounding like a pedantic logic nerd, and <b>steel-manning</b> positions you disagree with so your own thinking gets sharper.</p>
+    <p>Sixty fallacies across seven categories. Three modes. Examples pulled from a world that looks like yours — small business, New Orleans politics, futures trading, social-media discourse.</p>
+    <div class="row" style="margin-top:10px">
+      <button class="btn primary" onclick="go('quiz')">Start a Quiz</button>
+      <button class="btn" onclick="go('spar')">Jump into Sparring</button>
+      <button class="btn ghost" onclick="go('ref')">Browse the Encyclopedia</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="serif">How it works</h3>
+    <div class="scoreboard">
+      <div class="scorebox"><div class="n">①</div><div class="l">Quiz — identification</div><p class="tiny" style="margin-top:6px">A short argument lands on the page. You name the fallacy. You learn the counter-move.</p></div>
+      <div class="scorebox"><div class="n">②</div><div class="l">Sparring — real talk</div><p class="tiny" style="margin-top:6px">The bot argues a position and plants fallacies along the way. Call them out mid-conversation.</p></div>
+      <div class="scorebox"><div class="n">③</div><div class="l">Steel Man — other side</div><p class="tiny" style="margin-top:6px">Build the strongest version of a position you disagree with. Compare notes.</p></div>
+      <div class="scorebox"><div class="n">④</div><div class="l">Reference — 60 fallacies</div><p class="tiny" style="margin-top:6px">Every fallacy with a definition, an example from your world, and a counter-move.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="panel" id="panel-quiz">
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2 class="serif" style="margin:0">Identification Drill</h2>
+      <div class="row">
+        <label class="meta-line">Difficulty</label>
+        <select id="qDiff">
+          <option value="all">All</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+        <label class="meta-line">Domain</label>
+        <select id="qDom">
+          <option value="all">Any</option>
+          <option value="business">Business</option>
+          <option value="trading">Trading</option>
+          <option value="politics">Politics</option>
+          <option value="nola">New Orleans</option>
+          <option value="social">Social Media</option>
+          <option value="culture">Culture</option>
+          <option value="everyday">Everyday</option>
+        </select>
+        <button class="btn small" id="qNew">New Question</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div id="qZone"></div>
+  </div>
+</section>
+
+<!-- SPARRING -->
+<section class="panel" id="panel-spar">
+  <div class="card" id="sparSelect">
+    <h2 class="serif" style="margin-bottom:4px">Pick a Sparring Round</h2>
+    <p class="tiny">The bot will argue a position and plant fallacies along the way. Your job: call them out at each turn.</p>
+    <div class="divider"></div>
+    <div class="scenario-grid" id="sparGrid"></div>
+  </div>
+
+  <div class="card hidden" id="sparLive">
+    <div class="row" style="justify-content:space-between;margin-bottom:6px">
+      <h2 class="serif" id="sparTitle" style="margin:0"></h2>
+      <div class="row">
+        <span class="chip indigo" id="sparProgress">Turn 1</span>
+        <button class="btn small ghost" onclick="endSpar()">End round</button>
+      </div>
+    </div>
+    <p class="tiny" id="sparSetup"></p>
+    <div class="divider"></div>
+    <div class="chat-log" id="sparLog"></div>
+    <div class="chat-controls" id="sparControls"></div>
+  </div>
+</section>
+
+<!-- STEEL MAN -->
+<section class="panel" id="panel-steel">
+  <div class="card">
+    <h2 class="serif">Steel Man Practice</h2>
+    <p>The goal here isn't winning. It's building the strongest, most charitable version of an argument you disagree with — so your critique lands on the actual position, not the weakest cartoon version of it.</p>
+    <div class="divider"></div>
+    <div id="steelHome"></div>
+  </div>
+</section>
+
+<!-- REFERENCE -->
+<section class="panel" id="panel-ref">
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2 class="serif" style="margin:0">Fallacy Encyclopedia</h2>
+      <span class="tiny" id="refCount"></span>
+    </div>
+    <div class="divider"></div>
+    <div class="ref-controls">
+      <input type="text" id="refSearch" placeholder="Search — e.g. 'ad hominem', 'slippery'" style="flex:1;min-width:220px">
+      <select id="refCat">
+        <option value="all">All categories</option>
+        <option value="Formal">Formal</option>
+        <option value="Relevance">Informal — Relevance</option>
+        <option value="Presumption">Informal — Presumption</option>
+        <option value="Ambiguity">Informal — Ambiguity</option>
+        <option value="Causal">Causal</option>
+        <option value="Statistical">Statistical / Quantitative</option>
+        <option value="Rhetorical">Rhetorical Manipulation</option>
+      </select>
+    </div>
+    <div class="ref-grid" id="refGrid"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="panel" id="panel-stats">
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2 class="serif" style="margin:0">Your Progress</h2>
+      <div class="row">
+        <button class="btn small ghost" id="statsReset">Reset progress</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="scoreboard" id="statsGrid"></div>
+    <h3 class="serif" style="margin-top:18px">Accuracy by category</h3>
+    <div id="statsByCat"></div>
+    <h3 class="serif" style="margin-top:18px">Recent sessions</h3>
+    <div id="statsRecent"></div>
+  </div>
+</section>
+
+<footer class="footpiece">
+  <div>Built for Blake — Dirty Coast / ES desk / NOLA observer.</div>
+  <div>60 fallacies · 3 modes · offline-ready</div>
+</footer>
+
+</div>
+
+<script>
+/* ============================================================
+   DATA: Fallacy encyclopedia (60 entries, 7 categories)
+   ============================================================ */
+const FALLACIES = [
+  // FORMAL
+  {slug:"affirming-consequent",name:"Affirming the Consequent",category:"Formal",
+   def:"If P then Q. Q is true, therefore P. Reversing a conditional — treating 'if-then' like 'only-if'.",
+   example:"If our store has a sale, traffic spikes. Traffic is spiking today, so we must be having a sale.",
+   counter:"Ask what else could cause Q. Here: press coverage, a holiday, a viral post."},
+  {slug:"denying-antecedent",name:"Denying the Antecedent",category:"Formal",
+   def:"If P then Q. Not P, therefore not Q. Assuming the only path to Q is through P.",
+   example:"If we run Meta ads, we get new customers. We're not running Meta ads, so we won't get new customers.",
+   counter:"Name the other paths to the outcome. SEO, referrals, walk-ins."},
+  {slug:"undistributed-middle",name:"Undistributed Middle",category:"Formal",
+   def:"Two categories share a property, so they must overlap. They don't.",
+   example:"All successful brands use Instagram. We use Instagram. Therefore we're a successful brand.",
+   counter:"Point out the shared trait isn't what defines the category."},
+  {slug:"masked-man",name:"Masked Man Fallacy",category:"Formal",
+   def:"Assuming that if two things have different properties under one description, they must be different things.",
+   example:"I know the guy who runs Dirty Coast. I don't know Blake. So Blake doesn't run Dirty Coast.",
+   counter:"Separate the description from the thing described."},
+  {slug:"existential",name:"Existential Fallacy",category:"Formal",
+   def:"Inferring that something exists from a statement that doesn't actually assert existence.",
+   example:"All unicorns are magical. So at least one magical thing exists.",
+   counter:"Universal claims don't prove anything actually exists."},
+
+  // RELEVANCE
+  {slug:"ad-hominem",name:"Ad Hominem",category:"Relevance",
+   def:"Attacking the arguer instead of the argument. Subtypes: abusive, circumstantial, tu quoque, guilt by association, poisoning the well.",
+   example:"You can't have an opinion on small business policy — you've never run one.",
+   counter:"'That's about me, not about the argument. The point still stands: __.'"},
+  {slug:"tu-quoque",name:"Tu Quoque",category:"Relevance",
+   def:"'You do it too.' Deflecting criticism by accusing the critic of the same thing.",
+   example:"You're saying I'm late? You were late yesterday.",
+   counter:"'Two things can be true. Mine doesn't excuse yours.'"},
+  {slug:"poisoning-well",name:"Poisoning the Well",category:"Relevance",
+   def:"Pre-discrediting someone so nothing they say lands.",
+   example:"Before Blake starts: remember, he's trying to sell you t-shirts.",
+   counter:"Call out the setup. Ask for the argument on its own terms."},
+  {slug:"straw-man",name:"Straw Man",category:"Relevance",
+   def:"Misrepresenting an opponent's position as a weaker version, then defeating that.",
+   example:"You want affordable housing? So you want the government to own every apartment in the city.",
+   counter:"'That's not my claim. My claim is __.' Restate it cleanly."},
+  {slug:"red-herring",name:"Red Herring",category:"Relevance",
+   def:"Changing the subject to a related-but-different issue to dodge the point.",
+   example:"Sure, our delivery times are slipping, but look at how good our customer support is.",
+   counter:"'Both can be problems. Let's stay on delivery times.'"},
+  {slug:"appeal-authority",name:"Appeal to Authority",category:"Relevance",
+   def:"Citing an authority who isn't actually expert on this specific claim, or treating 'experts say so' as settling a live dispute.",
+   example:"Elon Musk posted about this trading setup, so it must work.",
+   counter:"Ask: is this person expert on THIS, and what's their evidence?"},
+  {slug:"appeal-emotion",name:"Appeal to Emotion",category:"Relevance",
+   def:"Using fear, pity, flattery, or spite to move the argument instead of evidence.",
+   example:"Think of the small shop owners whose lives will be destroyed if you vote against this bill.",
+   counter:"Name the emotion, then ask for the evidence the claim actually rests on."},
+  {slug:"appeal-fear",name:"Appeal to Fear",category:"Relevance",
+   def:"A specific form of emotional appeal: scare the audience into agreement.",
+   example:"If you don't upgrade your POS by Monday, your business could be hacked by dinner.",
+   counter:"Ask: what's the actual probability and what's the evidence?"},
+  {slug:"appeal-pity",name:"Appeal to Pity",category:"Relevance",
+   def:"Trying to win by evoking sympathy instead of making a case.",
+   example:"I know the deadline passed, but I've had the worst month of my life, so you should accept it.",
+   counter:"Acknowledge the feeling, then separate it from the decision at hand."},
+  {slug:"appeal-nature",name:"Appeal to Nature",category:"Relevance",
+   def:"Treating 'natural' as synonymous with 'good,' or 'unnatural' as 'bad.'",
+   example:"We should use only natural dyes. Natural means safe.",
+   counter:"'Arsenic is natural. Plenty of natural things hurt you.'"},
+  {slug:"appeal-tradition",name:"Appeal to Tradition",category:"Relevance",
+   def:"'We've always done it this way' presented as a reason to keep doing it.",
+   example:"Dirty Coast has always printed in New Orleans. We shouldn't ever use a mainland printer.",
+   counter:"Tradition is evidence worth weighing, not a reason on its own."},
+  {slug:"appeal-novelty",name:"Appeal to Novelty",category:"Relevance",
+   def:"'It's new, therefore better.' The mirror image of appeal to tradition.",
+   example:"The new AI-driven ad platform just launched. That's why we should switch.",
+   counter:"'New' and 'better' aren't the same. Show the performance data."},
+  {slug:"bandwagon",name:"Bandwagon (Appeal to Popularity)",category:"Relevance",
+   def:"Because many people believe/do it, it must be true/right.",
+   example:"Every brand our size is on TikTok. So we have to be.",
+   counter:"Popularity isn't truth. What's our audience actually doing?"},
+  {slug:"genetic",name:"Genetic Fallacy",category:"Relevance",
+   def:"Judging a claim by its origin rather than its content.",
+   example:"That study came out of a pharma-funded lab, so it's worthless.",
+   counter:"Funding is a reason for scrutiny, not dismissal. Assess the methods."},
+  {slug:"tone-policing",name:"Tone Policing",category:"Relevance",
+   def:"Dismissing an argument because the way it was delivered was too emotional, too sharp, etc.",
+   example:"I'd consider your point, but you're being so angry about it.",
+   counter:"'The tone is separate from the claim. Does the claim hold?'"},
+  {slug:"guilt-association",name:"Guilt by Association",category:"Relevance",
+   def:"A position is wrong because bad people hold it.",
+   example:"You want tighter spending? That's what the worst politicians of the last decade wanted.",
+   counter:"Two people can agree for different reasons. Judge the argument."},
+
+  // PRESUMPTION
+  {slug:"begging-question",name:"Begging the Question",category:"Presumption",
+   def:"The conclusion is smuggled into the premises — the argument assumes what it's trying to prove.",
+   example:"Lying is always wrong because honesty is a moral duty.",
+   counter:"'You've assumed what you're trying to prove. Let's rebuild it.'"},
+  {slug:"false-dilemma",name:"False Dilemma",category:"Presumption",
+   def:"Framing a choice as binary when there are more options.",
+   example:"Either we slash prices to match the competitor, or we die.",
+   counter:"Name the missing options. Brand value, bundling, service tier."},
+  {slug:"hasty-generalization",name:"Hasty Generalization",category:"Presumption",
+   def:"Drawing a broad conclusion from a small or unrepresentative sample.",
+   example:"Three Magazine Street shops closed this year — retail is dead here.",
+   counter:"Ask for the denominator. Out of how many?"},
+  {slug:"slippery-slope",name:"Slippery Slope",category:"Presumption",
+   def:"Claiming a first step will inevitably lead to an extreme outcome, without showing how.",
+   example:"If we allow food trucks on Magazine, next thing you know every brick-and-mortar is gone.",
+   counter:"'Show me the mechanism between A and Z. What actually connects them?'"},
+  {slug:"circular-reasoning",name:"Circular Reasoning",category:"Presumption",
+   def:"A says B. B says A. The argument loops back on itself.",
+   example:"The Bible is true because it says it's the word of God.",
+   counter:"Point out the loop and ask for independent evidence."},
+  {slug:"loaded-question",name:"Loaded Question",category:"Presumption",
+   def:"A question that smuggles in a controversial assumption.",
+   example:"So why did you stop caring about the neighborhood?",
+   counter:"'Reject the premise: I haven't stopped. Ask the real question.'"},
+  {slug:"false-equivalence",name:"False Equivalence",category:"Presumption",
+   def:"Treating two things as morally or logically equivalent when they aren't.",
+   example:"Raising the minimum wage is theft — just like mugging.",
+   counter:"List the differences that matter. Scale, consent, process."},
+  {slug:"no-true-scotsman",name:"No True Scotsman",category:"Presumption",
+   def:"Defending a universal claim by redefining membership when a counter-example appears.",
+   example:"'No real New Orleans native would order a Hurricane.' — 'My dad does.' — 'Well, he's not a REAL native.'",
+   counter:"'You're defining the category to save the claim. That's circular.'"},
+  {slug:"appeal-ignorance",name:"Appeal to Ignorance",category:"Presumption",
+   def:"Treating 'not proven false' as 'proven true' (or vice versa).",
+   example:"No one's shown this trading strategy doesn't work. So it works.",
+   counter:"Absence of disproof isn't proof. Where's positive evidence?"},
+  {slug:"burden-proof-shift",name:"Burden of Proof Shift",category:"Presumption",
+   def:"Making a claim and then demanding the skeptic disprove it.",
+   example:"I say the algorithm hates our brand. Prove it doesn't.",
+   counter:"'You made the claim, you bring the evidence.'"},
+
+  // AMBIGUITY
+  {slug:"equivocation",name:"Equivocation",category:"Ambiguity",
+   def:"Using one word in two different senses inside a single argument.",
+   example:"The sign says 'Fine for parking here.' So it's fine to park.",
+   counter:"Name the two meanings out loud. The trick collapses."},
+  {slug:"amphiboly",name:"Amphiboly",category:"Ambiguity",
+   def:"Ambiguity from sentence structure, not word meaning.",
+   example:"'I saw the man on the hill with the telescope.' — who had the telescope?",
+   counter:"Ask for clarification before engaging the claim."},
+  {slug:"composition",name:"Composition",category:"Ambiguity",
+   def:"Assuming what's true of the parts is true of the whole.",
+   example:"Each ingredient is tasty, so the dish will be tasty.",
+   counter:"Point out emergent properties that only appear at the whole level."},
+  {slug:"division",name:"Division",category:"Ambiguity",
+   def:"Assuming what's true of the whole is true of every part.",
+   example:"This is a great team. So every player on it is great.",
+   counter:"The whole can exceed — or hide weakness in — its parts."},
+  {slug:"accent",name:"Accent",category:"Ambiguity",
+   def:"Meaning changes based on which word is emphasized — used to mislead by stress or selective quoting.",
+   example:"'We shouldn't steal our FRIENDS' stuff' — implying it's fine to steal strangers'.",
+   counter:"Restate the claim flat. Strip the emphasis."},
+
+  // CAUSAL
+  {slug:"post-hoc",name:"Post Hoc Ergo Propter Hoc",category:"Causal",
+   def:"'After this, therefore because of this.' Confusing sequence with cause.",
+   example:"We changed the homepage banner and sales jumped. The banner did it.",
+   counter:"'What else changed that week?' Ask for a control."},
+  {slug:"cum-hoc",name:"Cum Hoc (Correlation ≠ Causation)",category:"Causal",
+   def:"Two things move together, therefore one causes the other.",
+   example:"Ice cream sales and drowning both rise in summer. Ice cream causes drowning.",
+   counter:"Look for a common cause. Summer causes both."},
+  {slug:"texas-sharpshooter",name:"Texas Sharpshooter",category:"Causal",
+   def:"Cherry-picking data clusters to match a pattern you decided on after the fact.",
+   example:"'I've been green three Mondays in a row — Monday is my edge.'",
+   counter:"Did you decide the pattern before or after seeing the data?"},
+  {slug:"single-cause",name:"Single Cause",category:"Causal",
+   def:"Attributing a complex outcome to one cause when multiple forces are at work.",
+   example:"Mid-City rents are up because of short-term rentals.",
+   counter:"List the other contributing causes. Supply, interest rates, jobs."},
+  {slug:"regression-fallacy",name:"Regression Fallacy",category:"Causal",
+   def:"Crediting (or blaming) a cause for an effect that was really regression to the mean.",
+   example:"Our worst week ever was followed by an okay week — the new training worked.",
+   counter:"Extreme results usually revert on their own. Isolate the signal."},
+  {slug:"reverse-causation",name:"Reverse Causation",category:"Causal",
+   def:"Mistaking cause and effect — it's actually the other way around.",
+   example:"Our best customers leave the most reviews, so reviews create best customers.",
+   counter:"Flip the arrow. Does the reverse story fit better?"},
+
+  // STATISTICAL
+  {slug:"base-rate",name:"Base Rate Neglect",category:"Statistical",
+   def:"Ignoring the base rate of an event when evaluating a specific case.",
+   example:"The test flagged the transaction as fraud — it's probably fraud.",
+   counter:"Ask: how common is fraud overall, and what's the false-positive rate?"},
+  {slug:"gamblers",name:"Gambler's Fallacy",category:"Statistical",
+   def:"Believing past independent outcomes change future independent probabilities.",
+   example:"The market's been red four days straight. Tomorrow's due for a bounce.",
+   counter:"Independent events don't owe you anything."},
+  {slug:"hot-hand",name:"Hot Hand Fallacy",category:"Statistical",
+   def:"Believing a streak implies continued streaks for the same actor. (Sometimes real in skilled domains; often not.)",
+   example:"I've hit three trades in a row — I should size up for the fourth.",
+   counter:"Separate skill from run-good. Check long-run stats."},
+  {slug:"survivorship",name:"Survivorship Bias",category:"Statistical",
+   def:"Drawing conclusions from only the winners, ignoring the failures that got selected out.",
+   example:"Every great brand I studied posted on Instagram daily. So daily posting makes brands great.",
+   counter:"What about all the brands that posted daily and failed? That's your sample."},
+  {slug:"cherry-picking",name:"Cherry Picking",category:"Statistical",
+   def:"Selecting only the data that supports your claim, ignoring what contradicts it.",
+   example:"Here are five months we beat last year. (The other seven: quietly omitted.)",
+   counter:"Ask for the full series, not the highlight reel."},
+  {slug:"mcnamara",name:"McNamara Fallacy",category:"Statistical",
+   def:"Making decisions only on what you can measure, ignoring what you can't.",
+   example:"We can't measure brand equity, so let's just optimize ROAS.",
+   counter:"Name the thing that's important AND hard to measure. Don't let metrics narrow the frame."},
+  {slug:"ecological",name:"Ecological Fallacy",category:"Statistical",
+   def:"Inferring things about individuals from aggregate group data.",
+   example:"Louisiana has high poverty rates, so this particular Louisianan is poor.",
+   counter:"Group averages don't predict any one member."},
+  {slug:"simpsons",name:"Simpson's Paradox",category:"Statistical",
+   def:"A trend appears in groups but reverses (or vanishes) when the groups are combined — or vice versa.",
+   example:"Campaign A beat B overall, but B actually won in every single audience segment.",
+   counter:"Disaggregate. Look at the subgroups before trusting the top line."},
+  {slug:"anchoring",name:"Anchoring Bias",category:"Statistical",
+   def:"Letting an initial number distort every subsequent judgment.",
+   example:"They offered $200k. Now any counter under $180k feels like a win — even if the fair number was $120k.",
+   counter:"Generate your number before seeing theirs."},
+
+  // RHETORICAL
+  {slug:"gish-gallop",name:"Gish Gallop",category:"Rhetorical",
+   def:"Flooding the conversation with many weak arguments at once so rebutting them all is impossible.",
+   example:"Firing off 12 half-true claims in 30 seconds, then declaring victory when you can't answer all of them.",
+   counter:"Pick the single strongest claim and hold them to it. Refuse the flood."},
+  {slug:"sealioning",name:"Sealioning",category:"Rhetorical",
+   def:"Relentlessly demanding evidence and clarification to exhaust the other side under the pretense of civility.",
+   example:"'I just want to understand. Can you cite that? And that? And that? And define that word?'",
+   counter:"Name the pattern. 'I'm happy to discuss; I'm not going to be interrogated in good faith.'"},
+  {slug:"moving-goalposts",name:"Moving the Goalposts",category:"Rhetorical",
+   def:"Once an argument's criteria are met, the critic raises new criteria.",
+   example:"'Show me one study.' (Shown.) 'One isn't enough.' (Shown five.) 'Not peer-reviewed enough.'",
+   counter:"Ask upfront what evidence would change their mind. Hold them to it."},
+  {slug:"whataboutism",name:"Whataboutism",category:"Rhetorical",
+   def:"Deflecting criticism by pointing at a different bad thing.",
+   example:"Sure our delivery slipped, but what about the competitor? They're worse.",
+   counter:"'Both can be true. Let's stay on this one.'"},
+  {slug:"motte-bailey",name:"Motte and Bailey",category:"Rhetorical",
+   def:"Advancing a bold claim (bailey). When challenged, retreat to a defensible weak version (motte), then later advance again.",
+   example:"'AI will replace all designers.' — Challenged. — 'I just mean some design tasks will be automated.' — Uncontested. — Later: 'All designers are cooked.'",
+   counter:"Pin the claim. 'Which version are you actually defending?'"},
+  {slug:"thought-terminator",name:"Thought-Terminating Cliché",category:"Rhetorical",
+   def:"A phrase designed to shut down thinking — 'it is what it is,' 'everything happens for a reason.'",
+   example:"'Agree to disagree.' (Used to end a debate you were losing.)",
+   counter:"Name the move. 'That phrase is doing a lot of work. Can we stay with the point?'"},
+  {slug:"false-balance",name:"False Balance",category:"Rhetorical",
+   def:"Presenting two sides as equally supported when the evidence strongly favors one.",
+   example:"'On climate — some scientists say X, others say Y.' (When it's 97% to 3%.)",
+   counter:"Weight by evidence, not by airtime."},
+  {slug:"appeal-incredulity",name:"Appeal to Incredulity",category:"Rhetorical",
+   def:"'I can't imagine how that could be true, therefore it isn't.'",
+   example:"'No way AI can write a good headline. I don't see how.'",
+   counter:"'Your imagination isn't the limit of reality. What evidence would move you?'"},
+  {slug:"bulverism",name:"Bulverism",category:"Rhetorical",
+   def:"Explaining WHY someone believes something wrong, before actually showing it's wrong.",
+   example:"'Of course Blake thinks retail's fine — he owns a shop.'",
+   counter:"'That's about motive. Show me the argument is actually wrong first.'"},
+  {slug:"kafka-trap",name:"Kafka Trap",category:"Rhetorical",
+   def:"Treating denial as confirmation: 'If you deny it, that proves you're guilty of it.'",
+   example:"'The fact that you don't think you're biased proves how deep your bias runs.'",
+   counter:"'That's unfalsifiable. No evidence could ever clear me — that's the tell.'"}
+];
+
+const CAT_ORDER = ["Formal","Relevance","Presumption","Ambiguity","Causal","Statistical","Rhetorical"];
+
+/* ============================================================
+   DATA: Quiz bank (identification mode)
+   ============================================================ */
+const QUIZ = [
+  // BEGINNER
+  {id:1,diff:"beginner",dom:"business",
+    arg:"You're criticizing my design choices? You don't even own a business.",
+    correct:["ad-hominem"],
+    expl:"Classic ad hominem — attacking the arguer's credentials instead of the argument itself. Whether someone runs a business doesn't determine whether their critique of a design is correct.",
+    counter:"'Let's leave me out of it for a sec — what specifically isn't working about the design?'",
+    distractors:["straw-man","red-herring","appeal-authority"]},
+  {id:2,diff:"beginner",dom:"nola",
+    arg:"If we allow food trucks on Magazine Street, next thing you know there'll be no brick-and-mortar restaurants left.",
+    correct:["slippery-slope"],
+    expl:"A textbook slippery slope — jumping from one modest policy (food trucks on one street) to a catastrophic outcome (no restaurants at all) with no mechanism connecting the two.",
+    counter:"'Show me the chain. How does step 1 actually lead to step 10?'",
+    distractors:["false-dilemma","appeal-fear","hasty-generalization"]},
+  {id:3,diff:"beginner",dom:"trading",
+    arg:"I've been profitable three Mondays in a row, so Mondays are clearly my best day.",
+    correct:["texas-sharpshooter"],
+    expl:"Texas sharpshooter — you noticed a cluster after the fact and drew a target around it. Three data points aren't a pattern. It's also a hasty generalization if you frame it as a rule.",
+    counter:"Ask: 'Did I predict Monday would be my best day BEFORE trading those three sessions? Or did I find the pattern in the data after?'",
+    distractors:["hasty-generalization","hot-hand","gamblers"]},
+  {id:4,diff:"beginner",dom:"social",
+    arg:"Our competitor dropped their prices, so we should too. Every successful retailer matches competitor pricing.",
+    correct:["bandwagon","hasty-generalization"],
+    expl:"Bandwagon ('everyone successful does it') plus hasty generalization (painting 'every successful retailer' with one brush). Premium brands like Patagonia or Aesop don't price-match.",
+    counter:"'Which retailers actually do this, and which of them match our position? Matching on price is only one strategy.'",
+    distractors:["appeal-tradition","false-dilemma","appeal-authority"]},
+  {id:5,diff:"beginner",dom:"everyday",
+    arg:"Either we go with the bigger vendor or our launch is dead on arrival.",
+    correct:["false-dilemma"],
+    expl:"False dilemma — framing the choice as binary when there are obvious middle options (a smaller vendor, phased rollout, in-house).",
+    counter:"'There are more than two doors here. Let's list them.'",
+    distractors:["slippery-slope","appeal-fear","hasty-generalization"]},
+  {id:6,diff:"beginner",dom:"culture",
+    arg:"Jazz is dying because young people don't go to Preservation Hall anymore.",
+    correct:["hasty-generalization","cum-hoc"],
+    expl:"One venue's attendance doesn't establish a genre-wide decline — that's a hasty generalization. And even if attendance is down, correlating it with 'jazz dying' confuses a venue trend with the health of the music (cum hoc).",
+    counter:"'Attendance at one venue isn't jazz. Look at Frenchmen, festival numbers, streaming.'",
+    distractors:["appeal-tradition","appeal-nature","false-dilemma"]},
+  {id:7,diff:"beginner",dom:"business",
+    arg:"This marketing framework has been used since 1960. It's proven.",
+    correct:["appeal-tradition"],
+    expl:"Appeal to tradition — 'old' is being used as a synonym for 'good.' Age is weak evidence on its own. AIDA is old AND useful, but the age isn't the reason.",
+    counter:"'Duration isn't the same as effectiveness. What's the evidence it actually works for our case?'",
+    distractors:["appeal-authority","bandwagon","appeal-novelty"]},
+  {id:8,diff:"beginner",dom:"trading",
+    arg:"ES has been red four sessions in a row. It's due for a green day.",
+    correct:["gamblers"],
+    expl:"Gambler's fallacy. Independent-ish events don't 'owe' you a reversal. Markets aren't a roulette wheel, but the reasoning here is the same flawed assumption — past reds don't raise tomorrow's green odds.",
+    counter:"'The market doesn't owe me anything. What's the actual setup for tomorrow?'",
+    distractors:["hot-hand","regression-fallacy","post-hoc"]},
+  {id:9,diff:"beginner",dom:"social",
+    arg:"That marketing advice is useless — it came from a guy who sells a $2,000 course.",
+    correct:["genetic"],
+    expl:"Genetic fallacy — rejecting the advice based on its source, not its content. The source is a reason for scrutiny, not dismissal. Even someone with shady incentives can say something true.",
+    counter:"'Being suspicious of the source is fair. Let's still look at what he actually said.'",
+    distractors:["ad-hominem","poisoning-well","bulverism"]},
+  {id:10,diff:"beginner",dom:"politics",
+    arg:"Think of the children — if this referendum fails, an entire generation of kids will grow up without art programs.",
+    correct:["appeal-emotion","slippery-slope"],
+    expl:"Appeal to emotion (pity/fear for children) combined with slippery slope (one ballot measure leading to a generation without art). Both can be real concerns — but here they're replacing the argument, not making one.",
+    counter:"'Art programs matter. Let's look at the actual budget mechanics this bill changes.'",
+    distractors:["false-dilemma","appeal-tradition","bandwagon"]},
+
+  // INTERMEDIATE
+  {id:11,diff:"intermediate",dom:"trading",
+    arg:"I'm up 60% this year running my system. People who doubt momentum trading either haven't tried it or don't understand risk.",
+    correct:["survivorship","no-true-scotsman"],
+    expl:"Survivorship bias — one winning year is the story; all the blown-up accounts aren't in the conversation. Plus a no-true-Scotsman: anyone who disagrees is redefined as someone who 'doesn't understand risk.'",
+    counter:"'Survivorship — how many people ran the same strategy and blew up? And anyone disagreeing can't be 'not a real trader' by definition — that's circular.'",
+    distractors:["texas-sharpshooter","hot-hand","appeal-authority"]},
+  {id:12,diff:"intermediate",dom:"nola",
+    arg:"Every short-term rental is a rental a teacher could have lived in. Ban them and we solve housing.",
+    correct:["single-cause","false-dilemma"],
+    expl:"Single cause — collapsing a housing-supply crisis onto one variable. And a framed false dilemma (ban or solve — as though banning automatically solves).",
+    counter:"'Short-term rentals are part of it. So are zoning, interest rates, new construction, wages.'",
+    distractors:["slippery-slope","hasty-generalization","straw-man"]},
+  {id:13,diff:"intermediate",dom:"business",
+    arg:"We ran the homepage redesign on Tuesday and sales jumped 22% by Friday. The redesign is a clear win.",
+    correct:["post-hoc","cum-hoc"],
+    expl:"Post hoc — you changed something and sales moved after, so you're crediting the redesign. But Tuesday → Friday could include a newsletter, a press mention, a weekend, an inventory refresh, a seasonal lift. Correlation in time isn't causation.",
+    counter:"'What else changed that week? We need a cleaner test before locking it in.'",
+    distractors:["texas-sharpshooter","regression-fallacy","hasty-generalization"]},
+  {id:14,diff:"intermediate",dom:"politics",
+    arg:"You say you support small business but you bought a house in a gentrifying neighborhood. You don't get to have an opinion on zoning.",
+    correct:["tu-quoque","ad-hominem"],
+    expl:"Tu quoque (hypocrisy charge) wrapped in ad hominem. Even if the person's housing choice is inconsistent with some value they hold, that doesn't settle the zoning argument.",
+    counter:"'Fair point on my situation — separate question. On the zoning itself, here's what the evidence shows.'",
+    distractors:["poisoning-well","bulverism","straw-man"]},
+  {id:15,diff:"intermediate",dom:"social",
+    arg:"People who shop at big-box stores don't actually care about their community. They'll say they do, but their wallets tell the truth.",
+    correct:["hasty-generalization","false-dilemma"],
+    expl:"Hasty generalization (all big-box shoppers flattened to one motive) plus an implicit false dilemma (you shop local OR you don't care — no middle ground like budget, access, mixed behavior).",
+    counter:"'Lots of people shop both. Budget constraints aren't the same as not caring.'",
+    distractors:["straw-man","appeal-emotion","ecological"]},
+  {id:16,diff:"intermediate",dom:"business",
+    arg:"I know Klaviyo works. Our competitor uses it, and they're killing it.",
+    correct:["cum-hoc","single-cause"],
+    expl:"Correlation-causation: competitor uses Klaviyo AND is doing well, therefore Klaviyo is why. The competitor also has different products, a bigger list, a different team, a different market. You're pinning their success on one variable.",
+    counter:"'Klaviyo could be part of it. What else is driving their growth? Let's not single-cause this.'",
+    distractors:["appeal-authority","survivorship","bandwagon"]},
+  {id:17,diff:"intermediate",dom:"trading",
+    arg:"The backtest shows 78% win rate over five years. This system is robust.",
+    correct:["cherry-picking","survivorship"],
+    expl:"Backtest win rates often hide cherry-picking (which parameters were optimized on which years) and survivorship bias (testing on instruments that survived to today, ignoring ones that were delisted). A 78% backtest says almost nothing without walk-forward testing.",
+    counter:"'What was the out-of-sample performance? And were any parameters tuned on the same data?'",
+    distractors:["texas-sharpshooter","hot-hand","base-rate"]},
+  {id:18,diff:"intermediate",dom:"culture",
+    arg:"New Orleans isn't a real city anymore — it's a theme park. The real New Orleanians are leaving, and the people moving in don't count.",
+    correct:["no-true-scotsman"],
+    expl:"No true Scotsman — 'real' New Orleanians are defined in a way that excludes anyone who doesn't fit the argument. The definition is engineered to make the claim unfalsifiable.",
+    counter:"'Who qualifies as a real New Orleanian, and who decided? That definition is doing all the work.'",
+    distractors:["hasty-generalization","appeal-tradition","straw-man"]},
+  {id:19,diff:"intermediate",dom:"politics",
+    arg:"You can't criticize the city's budget without proposing a better one. Put up or shut up.",
+    correct:["burden-proof-shift","false-dilemma"],
+    expl:"A burden shift (you have to produce a full budget before you can critique a line item) combined with a false dilemma (propose one or be silent). Plenty of valid criticism doesn't require a full alternative.",
+    counter:"'Pointing out a specific line item is broken doesn't require me to redraft the whole thing.'",
+    distractors:["tu-quoque","ad-hominem","straw-man"]},
+  {id:20,diff:"intermediate",dom:"social",
+    arg:"You think AI writing tools are fine? So you think it's okay that thousands of writers lose their jobs and we end up with nothing but slop.",
+    correct:["straw-man","slippery-slope"],
+    expl:"Straw man — the original position ('AI writing tools are fine') is inflated into 'okay with mass job loss and cultural collapse.' Plus a slippery slope from 'tools exist' to 'nothing but slop.'",
+    counter:"'That's not what I said. My position is __. Let's argue that.'",
+    distractors:["appeal-emotion","false-dilemma","appeal-fear"]},
+
+  // ADVANCED
+  {id:21,diff:"advanced",dom:"business",
+    arg:"Every direct-to-consumer brand I've studied that grew past $50M had a strong Instagram presence. Ours has stalled at $12M, and we post weekly. If we're not growing like them, it's because we're not Instagram-first enough. The brands that tried to grow without it flamed out or stayed niche, which proves the point.",
+    correct:["survivorship","circular-reasoning","single-cause"],
+    expl:"Survivorship bias — you only studied brands that made it to $50M. Single cause — you're pinning growth on Instagram while ignoring product, distribution, capital. Circular reasoning — 'brands that tried to grow without it flamed out' is defining failure as 'not Instagram-first,' then using that to prove Instagram-first is necessary.",
+    counter:"'I'd want to see brands that WERE Instagram-first and failed. And brands that grew past $50M without it. The survivor sample is telling you a comforting story.'",
+    distractors:["bandwagon","cherry-picking","no-true-scotsman"]},
+  {id:22,diff:"advanced",dom:"politics",
+    arg:"I'm not saying the STR ordinance is perfect, but look: the people opposing it are realtors and property managers — of course they say it'll hurt the city. The studies they cite are all industry-funded. And honestly, if you lived through Katrina, you understand neighborhood character in a way newer residents just don't. Anyone who hasn't doesn't really get what we're defending.",
+    correct:["poisoning-well","genetic","no-true-scotsman"],
+    expl:"Poisoning the well (pre-discrediting opponents as self-interested). Genetic fallacy (dismissing studies for their funding, not their methods). No true Scotsman (real New Orleanians are defined as people who lived through Katrina — anyone else's opinion doesn't count by definition).",
+    counter:"'All three — you've made it so no opposing voice can count. Realtors can still be right. Industry-funded studies can be methodologically sound. And the definition of 'real resident' is engineered to close the debate.'",
+    distractors:["ad-hominem","appeal-tradition","bulverism"]},
+  {id:23,diff:"advanced",dom:"trading",
+    arg:"My edge comes from being in the trades others can't take. I've been profitable 14 of the last 16 months. Anyone who's studied real tape reading knows volume speaks louder than indicators. If you're doubting the approach, you probably haven't sat in front of the tape long enough to feel it — that's not something you can learn from a PDF.",
+    correct:["hot-hand","appeal-authority","no-true-scotsman","appeal-incredulity"],
+    expl:"Hot hand (14 of 16 is the entire basis for 'edge'). Appeal to authority ('real tape readers' as vague expert class). No true Scotsman (doubters are redefined as people who haven't sat in front of the tape). Appeal to incredulity with a side of unfalsifiability — you can't learn it, so you can't argue about it.",
+    counter:"'Sixteen months is a small sample. And making the method unlearnable-except-by-feel makes it un-testable — which conveniently means no one can ever show it doesn't work.'",
+    distractors:["survivorship","texas-sharpshooter","gish-gallop"]},
+  {id:24,diff:"advanced",dom:"social",
+    arg:"You keep bringing up our late deliveries, but honestly the whole industry is worse than us. Amazon has complaints, Shopify stores have complaints — it's the nature of e-commerce. If you don't understand that, you probably shouldn't be giving retail advice. And we've been in business since 2005; the fact we're still here means we're doing something right.",
+    correct:["whataboutism","ad-hominem","appeal-tradition"],
+    expl:"Whataboutism (pointing at Amazon to deflect from your own problem). Ad hominem (implying the critic doesn't understand retail). Appeal to tradition ('we've been around 20 years' as evidence we're doing something right — longevity is data but not a debate-ender).",
+    counter:"'Three deflections in a row. Stay with me: our late deliveries are a problem we can fix. The industry average and our twenty-year history don't settle that.'",
+    distractors:["tu-quoque","bulverism","genetic"]},
+  {id:25,diff:"advanced",dom:"culture",
+    arg:"Gentrification is destroying New Orleans culture. The proof? Every major tradition — second lines, Mardi Gras Indians, neighborhood jazz — is fading. You can feel it. Anyone who doesn't feel it hasn't been paying attention, or has benefitted from the change and doesn't want to admit it.",
+    correct:["begging-question","bulverism","appeal-incredulity","kafka-trap"],
+    expl:"Begging the question ('traditions are fading' is asserted, not shown). Bulverism (assuming the motive of anyone who disagrees). Appeal to incredulity ('you can feel it' as evidence). Kafka trap — if you deny it, that proves you're either inattentive or in denial, which means the claim can't be refuted.",
+    counter:"'The claim might be right, but this way of arguing makes it unfalsifiable. Let's look at the data: participation numbers, funding, new initiatives, not just vibes.'",
+    distractors:["no-true-scotsman","hasty-generalization","appeal-tradition"]},
+  {id:26,diff:"advanced",dom:"business",
+    arg:"Our retention dropped 4% last quarter. The CX team says it's seasonal. But look: we increased ad spend 30% in the same period, so new-customer mix is worse. Meanwhile our loyalty program changes rolled out and Q4 retention is always weak. Given all that, I don't think the product is the problem — the data shows us what we need to know.",
+    correct:["single-cause","cherry-picking","begging-question"],
+    expl:"Single cause (they dismiss product but credit multiple explanations for the drop selectively). Cherry picking (picking the explanations that exonerate the product). Begging the question ('the data shows us what we need to know' — the conclusion was smuggled in).",
+    counter:"'You've listed reasons that aren't the product. A clean look would include the product data too — not just the alternatives to it.'",
+    distractors:["post-hoc","survivorship","false-dilemma"]},
+  {id:27,diff:"advanced",dom:"politics",
+    arg:"The new infrastructure bill will ruin this city. Any economist will tell you. And if you look at what happened in Detroit in the 70s, Baltimore in the 90s, and St. Louis last year, the pattern is obvious. You don't need a PhD to see it.",
+    correct:["appeal-authority","texas-sharpshooter","hasty-generalization"],
+    expl:"Vague appeal to authority ('any economist'). Texas sharpshooter — three cherry-picked cases presented as a pattern after the fact. Hasty generalization from three to a universal rule, ignoring countless cities where infrastructure bills didn't wreck anything.",
+    counter:"'Which economists, by name? Three cities out of thousands isn't a pattern — and what about the ones where it worked?'",
+    distractors:["cherry-picking","single-cause","false-balance"]},
+  {id:28,diff:"advanced",dom:"trading",
+    arg:"Sure, I lost the last three weeks, but I was profitable all of Q1. My system works. The market's just weird right now. If I'd sized up in February like my plan said, I'd be green for the year. The losses aren't on the system — they're on me not executing.",
+    correct:["cherry-picking","no-true-scotsman","hindsight","regression-fallacy"].filter(x=>x!=="hindsight"),
+    expl:"Cherry-picking (Q1 is the season we're highlighting; losses are bracketed). No true Scotsman (anytime the system loses, 'true' execution wasn't happening — so the system can never be said to fail). Regression fallacy possible: Q1 may have been a lucky cluster that mean-reverted in Q2.",
+    counter:"'The system is only 'working' when we exclude the losses and blame them on not following it. That's unfalsifiable. Let's look at the full equity curve.'",
+    distractors:["survivorship","hot-hand","texas-sharpshooter"]},
+  {id:29,diff:"advanced",dom:"social",
+    arg:"You're telling me AI-generated content is fine because 'tools have always replaced labor.' That's exactly what the Luddites said. The fact you're so comfortable with this tells me you've already got job security and don't care about the people this displaces. I'd expect this from tech bros, not from someone who runs a small brand.",
+    correct:["false-equivalence","bulverism","guilt-association"],
+    expl:"False equivalence (equating contemporary AI replacement with 19th-century textile automation without argument). Bulverism (inferring motive from position — 'you're comfortable because you have job security'). Guilt by association (linking the view to tech bros).",
+    counter:"'The Luddite comparison needs work — different technology, different economy, different outcomes. And my job security isn't the argument. Let's return to whether AI tools help or hurt.'",
+    distractors:["straw-man","ad-hominem","appeal-emotion"]},
+  {id:30,diff:"advanced",dom:"nola",
+    arg:"The city should prioritize tourism revenue — it's the engine that funds everything else. Without tourism we'd have no roads, no schools, no services. That's just how New Orleans works. Anyone who suggests otherwise either doesn't understand the economy or wants the city to fail.",
+    correct:["false-dilemma","single-cause","bulverism"],
+    expl:"False dilemma (prioritize tourism OR lose all services). Single cause (tourism as the sole revenue engine). Bulverism (disagreement is explained by ignorance or malice rather than being engaged as a view).",
+    counter:"'Tourism matters. It's not the only revenue source, and prioritizing it isn't the only way to fund services. People can disagree and still understand the economy.'",
+    distractors:["appeal-tradition","slippery-slope","no-true-scotsman"]},
+  {id:31,diff:"intermediate",dom:"everyday",
+    arg:"Everyone I know thinks the new streetcar plan is a waste of money. It's clearly a bad idea.",
+    correct:["bandwagon","hasty-generalization"],
+    expl:"Bandwagon (popularity as evidence) and hasty generalization (your social circle isn't a representative sample).",
+    counter:"'Who's in that circle? Probably people who already agree with you. Let's look at the actual plan.'",
+    distractors:["appeal-tradition","ecological","cherry-picking"]},
+  {id:32,diff:"intermediate",dom:"business",
+    arg:"If we don't launch by Q3, we'll miss the window, competitors will take the category, and this entire brand is done.",
+    correct:["slippery-slope","appeal-fear"],
+    expl:"Slippery slope (one missed deadline to total brand death) with appeal to fear baked in.",
+    counter:"'Missing Q3 has real costs. Let's list them specifically — not 'the brand is done.''",
+    distractors:["false-dilemma","hasty-generalization","post-hoc"]},
+  {id:33,diff:"intermediate",dom:"trading",
+    arg:"You have to always keep a position overnight. The best traders I know all swing. If you're only day trading, you're not really a trader.",
+    correct:["no-true-scotsman","appeal-authority"],
+    expl:"No true Scotsman (day traders redefined as 'not real traders'). Appeal to authority (vague 'best traders I know').",
+    counter:"'Day trading is a legitimate approach — the definition is being engineered. And who are these best traders?'",
+    distractors:["bandwagon","hasty-generalization","appeal-tradition"]},
+  {id:34,diff:"advanced",dom:"nola",
+    arg:"Anyone who says gentrification hasn't hurt the Treme clearly hasn't walked through it lately. Rents are up, the neighborhood feels different, and the cultural institutions are struggling. If you disagree, you're probably someone who profits from the change — which is exactly why your opinion is compromised.",
+    correct:["bulverism","appeal-incredulity","kafka-trap"],
+    expl:"Bulverism (assuming the motive of anyone who disagrees). Appeal to incredulity ('clearly hasn't walked through it'). Kafka trap (disagreement is treated as proof of bias or self-interest, making the claim unfalsifiable).",
+    counter:"'The feeling might be right — but the argument as stated can't be challenged, because disagreement is rewritten as motive. Let's bring numbers in.'",
+    distractors:["no-true-scotsman","hasty-generalization","ad-hominem"]},
+  {id:35,diff:"intermediate",dom:"politics",
+    arg:"The mayor says the crime rate is down. Some activist groups say it's up. The truth is probably somewhere in the middle.",
+    correct:["false-balance"],
+    expl:"False balance — 'somewhere in the middle' isn't a reasoning principle, it's a shortcut. One side might be right; both might be wrong; truth isn't automatically between stated positions.",
+    counter:"'Let's look at the numbers they're each citing, not split the difference on faith.'",
+    distractors:["appeal-authority","cherry-picking","whataboutism"]},
+  {id:36,diff:"advanced",dom:"social",
+    arg:"Look, either we allow misinformation and society crumbles, or we moderate platforms and free speech dies. There's no middle ground. The people saying there is are naive, and the fact they're saying it only shows how removed they are from actual platform operations.",
+    correct:["false-dilemma","ad-hominem","bulverism"],
+    expl:"False dilemma (binary framing with no middle). Ad hominem (opponents are 'naive'). Bulverism (dismissing them by explaining why they believe what they do — 'removed from platform operations' — instead of engaging the view).",
+    counter:"'There's a huge middle — policy tiers, transparency, appeals, targeted enforcement. The binary frame is doing the work, not the argument.'",
+    distractors:["slippery-slope","appeal-fear","poisoning-well"]},
+  {id:37,diff:"intermediate",dom:"business",
+    arg:"We shouldn't bother A/B testing. Ninety-nine percent of tests come back with no clear winner, so what's the point?",
+    correct:["base-rate","hasty-generalization"],
+    expl:"Base rate neglect of a different kind — you're dismissing the practice because the base rate of 'no winner' is high, ignoring that the 1% that does find a winner compounds over time. Also a hasty generalization from 'most tests' to 'the practice is useless.'",
+    counter:"'The value isn't each test — it's the cumulative learning. Fewer surprises, better priors.'",
+    distractors:["cherry-picking","survivorship","mcnamara"]},
+  {id:38,diff:"intermediate",dom:"trading",
+    arg:"Technical analysis works because millions of traders use it. If it didn't work, it wouldn't be everywhere.",
+    correct:["bandwagon","appeal-popularity"].filter(x=>x!=="appeal-popularity"),
+    expl:"Bandwagon fallacy. Popularity doesn't establish effectiveness — a lot of losing retail traders use TA too. The prevalence proves the prevalence.",
+    counter:"'Popularity tells us people use it, not that it makes money. Show me the edge.'",
+    distractors:["appeal-tradition","appeal-authority","survivorship"]},
+  {id:39,diff:"advanced",dom:"politics",
+    arg:"Raising the minimum wage is just theft from business owners. When you force someone to pay more than they want to, you're taking their property. It's no different from mugging them in the street.",
+    correct:["false-equivalence","begging-question"],
+    expl:"False equivalence (legislated wage floor ≠ armed robbery — differences in consent structure, legality, scale, mechanism). Begging the question ('taking their property' assumes wages are fully the owner's property to begin with — that's the contested point).",
+    counter:"'Mugging and wage law are different in every meaningful dimension. And the premise that wage obligations equal property theft is exactly what's being debated.'",
+    distractors:["slippery-slope","appeal-emotion","straw-man"]},
+  {id:40,diff:"advanced",dom:"business",
+    arg:"We need to fire this vendor. Last month they missed an SLA. Sure, they hit the other 17 SLAs and they've been reliable for five years, but one miss is enough. In business, you're only as good as your last delivery.",
+    correct:["cherry-picking","hasty-generalization"],
+    expl:"Cherry-picking one miss out of 18 metrics and treating it as the whole picture. Hasty generalization from one data point to 'fire them.' Also an embedded thought-terminating cliché ('you're only as good as your last delivery') doing real work.",
+    counter:"'Seventeen-out-of-eighteen is strong. One miss is a data point, not a verdict — what would a pattern look like?'",
+    distractors:["thought-terminator","regression-fallacy","single-cause"]}
+];
+
+/* ============================================================
+   DATA: Sparring scenarios (scripted, branching)
+   ============================================================ */
+const SCENARIOS = [
+  {
+    id:"str",
+    title:"Short-Term Rentals on Magazine",
+    blurb:"The bot argues the city must ban short-term rentals immediately.",
+    setup:"You're in a neighborhood meeting. The bot takes the position that all STRs should be banned city-wide, starting now. 4 planted fallacies.",
+    planted:["slippery-slope","single-cause","appeal-emotion","no-true-scotsman"],
+    turns:[
+      {
+        bot:"Look, if we don't ban every short-term rental in this city by end of year, there will be no long-term residents left in five years. None. It's a straight line from where we are to a completely hollowed-out city.",
+        hint:"The bot is jumping from 'don't ban them' to 'no residents left' with no mechanism in between.",
+        options:[
+          {label:"That's a slippery slope — no mechanism between 'don't ban' and 'no residents.'", result:"correct",
+           response:"Yeah, caught me. But it's because SHORT-TERM RENTALS ARE THE CAUSE OF THE HOUSING CRISIS. That's the whole mechanism. Remove them, housing gets affordable again. Simple."},
+          {label:"That's fearmongering — an appeal to emotion.", result:"partial",
+           response:"There's emotion in it, sure. But the bigger problem is the leap — I went from 'don't ban' to 'no residents left' with no step-by-step. That's a slippery slope. Try again."},
+          {label:"You haven't given any evidence.", result:"wrong",
+           response:"Sharper than that. I made a specific argumentative move — a direct leap from one modest outcome to an extreme one with nothing in between. What's that called?"},
+        ]
+      },
+      {
+        bot:"STRs are the cause of our housing crisis. Supply, wages, interest rates, zoning — that's noise. It's the rentals. Period.",
+        hint:"The bot just collapsed a multi-variable problem onto one cause.",
+        options:[
+          {label:"Single cause — you're pinning a complex problem on one variable.", result:"correct",
+           response:"Fine. But let me paint the picture: families with kids being pushed out. Teachers sleeping in their cars. That's what we're fighting for here. Doesn't that matter more than economic nuance?"},
+          {label:"Correlation isn't causation.", result:"partial",
+           response:"Closer — but my move wasn't about correlation. I named a specific thing as THE cause, dismissing everything else as noise. That's the single-cause fallacy. Name it cleanly."},
+          {label:"Show me the data.", result:"wrong",
+           response:"Demanding data is fine. But I made a specific logical move: I took a multi-causal problem and pinned it on one thing. What's that called?"},
+        ]
+      },
+      {
+        bot:"Imagine a teacher, single mom, sleeping in her car while an Airbnb across the street sits empty waiting for a weekender. That's the real issue here. How do you argue with that?",
+        hint:"Strong image. But is the image an argument, or a substitute for one?",
+        options:[
+          {label:"That's an appeal to emotion — the image isn't the argument.", result:"correct",
+           response:"Okay, yes. But only a REAL New Orleanian would understand what this city has lost. Anyone defending STRs clearly doesn't get what makes this place what it is."},
+          {label:"That's anecdotal — one case isn't evidence.", result:"partial",
+           response:"Also true. But the deeper move is the emotional picture replacing the policy argument. That's appeal to emotion. More precise next time."},
+          {label:"You're trying to manipulate me.", result:"wrong",
+           response:"Technically, but be precise. I substituted a vivid picture for actual reasoning. What's that specific fallacy called?"},
+        ]
+      },
+      {
+        bot:"And honestly — only a real New Orleanian would understand what this city has lost. If you're defending STRs, you're either new here, you're profiting, or you just don't get it.",
+        hint:"The bot just redefined who counts as able to have an opinion.",
+        options:[
+          {label:"That's a no-true-Scotsman — you're defining away anyone who disagrees.", result:"correct",
+           response:"Fair play. Four rounds, four fallacies. You held it down. Let's debrief."},
+          {label:"That's ad hominem.", result:"partial",
+           response:"It's adjacent to ad hominem, but the move is specifically defining 'real New Orleanian' so anyone disagreeing can't count — that's no-true-Scotsman. Nail it and we're done."},
+          {label:"That's gatekeeping.", result:"partial",
+           response:"Right feeling, wrong label. The specific move is defining a category to exclude counter-examples — no-true-Scotsman. Say it and we're done."},
+        ]
+      }
+    ]
+  },
+  {
+    id:"trading",
+    title:"'Trading is just gambling'",
+    blurb:"The bot argues that anyone trading futures or options is basically at a casino.",
+    setup:"The bot is your cousin at Thanksgiving. Position: trading is gambling; all traders are delusional. 4 planted fallacies.",
+    planted:["hasty-generalization","straw-man","ad-hominem","appeal-incredulity"],
+    turns:[
+      {
+        bot:"Everyone I know who trades has lost money. That's why I can say: trading is just gambling. It's not complicated.",
+        hint:"The 'everyone I know' is doing a lot of load-bearing here.",
+        options:[
+          {label:"Hasty generalization — your sample is tiny and not representative.", result:"correct",
+           response:"Okay, maybe. But what you're really defending is people who sit at computers clicking buttons all day thinking they can beat Wall Street. Be serious."},
+          {label:"That's just anecdotal evidence.", result:"partial",
+           response:"Close. Saying 'anecdotal' is fine, but the specific fallacy of jumping from 'my circle' to 'all traders' is hasty generalization. Precision."},
+          {label:"Prove it.", result:"wrong",
+           response:"Demanding proof is fine, but I made a specific logical move. I took a small sample and drew a universal conclusion. What's that called?"},
+        ]
+      },
+      {
+        bot:"You're telling me you can consistently beat a market with firms running supercomputers? Clicking on a chart like a little casino gambler thinking you're smarter than all of Wall Street?",
+        hint:"That's not what anyone actually said. What is the bot doing to the argument?",
+        options:[
+          {label:"Straw man — you're arguing against a cartoon version of the position.", result:"correct",
+           response:"Alright, alright. But look: I CAN'T EVEN IMAGINE how someone beats these markets over time. It doesn't make sense. It can't be real."},
+          {label:"Ad hominem — you're insulting me.", result:"partial",
+           response:"There's a shot in there, but the main move is distorting the position first — clicking on charts, thinking you're smarter than Wall Street. That's a straw man. Cleaner."},
+          {label:"That's dismissive.", result:"wrong",
+           response:"It's dismissive, yes, but what's the specific fallacy? I rebuilt the argument as something weaker and then attacked that. What's the name?"},
+        ]
+      },
+      {
+        bot:"Honestly, I can't picture how anyone wins at this long-term. If I can't see how it works, how can it be real? There's no way.",
+        hint:"The bot's imagination is not a measure of reality.",
+        options:[
+          {label:"Appeal to incredulity — your imagination isn't the evidence.", result:"correct",
+           response:"Fair hit. But forget the logic — you only defend this because you're one of the deluded ones. Of course you think it's real; you're doing it."},
+          {label:"You're just not informed.", result:"partial",
+           response:"Maybe true, but the move here is specifically 'I can't imagine it, so it can't be true.' That's appeal to incredulity. Nail the exact one."},
+          {label:"That's your opinion.", result:"wrong",
+           response:"Sharper. I made a specific move — using my personal inability to picture something as evidence it isn't true. What's that called?"},
+        ]
+      },
+      {
+        bot:"You just defend trading because you're IN it. You're the one clicking buttons, so of course you're biased. This whole argument is self-serving.",
+        hint:"The bot just stopped arguing about trading and started arguing about you.",
+        options:[
+          {label:"Ad hominem — this is about me now, not the argument.", result:"correct",
+           response:"Yep. Four fallacies, four rounds. You held your own. Let's break it down."},
+          {label:"Bulverism — you're explaining why I believe it instead of showing it's wrong.", result:"correct",
+           response:"Actually, spot on — that's a subtler form of ad hominem where you skip showing the argument is wrong and go straight to motive. I'll take that. Debrief coming."},
+          {label:"Prove that I'm biased.", result:"wrong",
+           response:"Don't play defense — name the fallacy. I just switched from the topic to attacking you as the arguer. What's that called?"},
+        ]
+      }
+    ]
+  },
+  {
+    id:"brickstore",
+    title:"'Retail is dead — go online only'",
+    blurb:"The bot argues you should shutter your physical shops immediately.",
+    setup:"You're in a strategy meeting. The bot (as an outside consultant) argues Dirty Coast should close Magazine and Chartres and go digital-only. 4 planted fallacies.",
+    planted:["survivorship","false-dilemma","cherry-picking","bandwagon"],
+    turns:[
+      {
+        bot:"Every DTC brand that blew up in the last decade — Allbirds, Warby, Glossier in its early years — they all went heavy digital. That's the pattern. Brick-and-mortar is the past.",
+        hint:"What about the brands that went heavy digital and flamed out?",
+        options:[
+          {label:"Survivorship bias — you're only studying the winners.", result:"correct",
+           response:"Fair. But listen: it's retail OR digital. There's no middle. Pick a lane or bleed cash trying to do both."},
+          {label:"You're cherry-picking examples.", result:"partial",
+           response:"Related, but more specific: I named only companies that survived, ignoring the ones that went digital-only and died. That's survivorship bias. Name it precisely."},
+          {label:"Those are just three brands.", result:"partial",
+           response:"Three is small, but my real move was picking three survivors and ignoring every digital-only brand that flamed out. That's survivorship bias."},
+        ]
+      },
+      {
+        bot:"Look, it's digital or brick-and-mortar. You can't do both well. Pick one.",
+        hint:"Is that really the choice? Where are the middle options?",
+        options:[
+          {label:"False dilemma — there are lots of middle positions.", result:"correct",
+           response:"Okay. But look at YOUR numbers — your Q1 online growth was 34%. Your stores were flat. The data's clear."},
+          {label:"That's too binary.", result:"partial",
+           response:"Yes — say it cleaner. Two-option framing when there are more is called a false dilemma."},
+          {label:"I disagree.", result:"wrong",
+           response:"Say why. I just gave you a binary choice. What's that logical move called?"},
+        ]
+      },
+      {
+        bot:"Your Q1 online was +34%, stores were flat. Ignore Q2 and Q3, ignore store contribution to brand awareness — just look at Q1. Data is data.",
+        hint:"One quarter, one metric, conveniently selected.",
+        options:[
+          {label:"Cherry-picking — you picked the data that supports your position.", result:"correct",
+           response:"Touché. But look, every major retail brand is closing locations. Everyone. You're going to be the last holdout standing in a dead mall."},
+          {label:"You're ignoring other data.", result:"partial",
+           response:"Yes — the specific term for that is cherry-picking. Say it cleanly."},
+          {label:"One quarter isn't enough.", result:"partial",
+           response:"Right instinct, exact name: cherry-picking. I selected the data slice that supports me. Name it."},
+        ]
+      },
+      {
+        bot:"Come on — EVERY retailer is cutting stores. If the whole industry is doing it, why would you swim against the current?",
+        hint:"Popularity isn't strategy.",
+        options:[
+          {label:"Bandwagon — the industry doing it doesn't make it right for us.", result:"correct",
+           response:"Okay, fair. You caught all four. Time to debrief — you saw through the argument pretty cleanly."},
+          {label:"Appeal to authority.", result:"wrong",
+           response:"Close category. I didn't cite an authority; I cited the crowd. What's that called?"},
+          {label:"Appeal to tradition.", result:"wrong",
+           response:"Opposite direction — I argued because it's what everyone NEW is doing, not what's traditional. Try again."},
+        ]
+      }
+    ]
+  },
+  {
+    id:"aicontent",
+    title:"'AI will replace all creative work'",
+    blurb:"The bot argues that human creative jobs are over — just accept it.",
+    setup:"A Twitter-style argument. Bot position: AI replaces all creative work; resistance is naive. 4 planted fallacies.",
+    planted:["motte-bailey","straw-man","appeal-novelty","false-dilemma"],
+    turns:[
+      {
+        bot:"AI is going to replace all creative work. Period. Copywriters, designers, photographers — all gone in five years. It's not even a question.",
+        hint:"That's a huge claim. Watch what happens if you push on it.",
+        options:[
+          {label:"Bold claim — where's the evidence for 'all' and 'five years'?", result:"correct",
+           response:"Okay, well, obviously not ALL. I mean some tasks in those fields will be automated. Everyone agrees with that. No one really disagrees that SOME tasks get automated, right?"},
+          {label:"That's fearmongering.", result:"wrong",
+           response:"Not quite — the bigger problem is the scope of the claim. Push on it."},
+        ]
+      },
+      {
+        bot:"Right, everyone agrees some tasks will be automated. So we're on the same page. AI will replace creative work — obvious.",
+        hint:"Wait — notice what just happened between the first message and this one.",
+        options:[
+          {label:"Motte and bailey — you retreated to a weak claim when challenged, now you're reasserting the bold one.", result:"correct",
+           response:"You saw that? Fine. Here's the real point: anyone who thinks AI tools won't hit creative industries is essentially saying technology has never changed anything, which is obviously wrong."},
+          {label:"You just changed your position.", result:"partial",
+           response:"Sharper — I advanced a big claim, retreated to a safe small one when challenged, and now I'm using the small one to re-assert the big one. That specific move is motte and bailey. Nail it."},
+          {label:"You're contradicting yourself.", result:"partial",
+           response:"Related, but there's a named fallacy for this exact maneuver — advancing a bold claim (the bailey), retreating to a safe one under fire (the motte), then advancing again. What is it?"},
+        ]
+      },
+      {
+        bot:"Anyone who thinks AI tools won't hit creative industries is essentially saying technology has never changed anything. That's an absurd position. Only a fool would hold it.",
+        hint:"Did anyone actually say technology never changed anything?",
+        options:[
+          {label:"Straw man — no one said technology never changes anything.", result:"correct",
+           response:"Alright. But look — AI is the NEW paradigm. New tools win. History shows it. Whoever adapts first wins, whoever doesn't dies."},
+          {label:"Ad hominem.", result:"partial",
+           response:"There's an insult, yes, but the main move is rebuilding my opponent's position into something absurd and then attacking that. That's a straw man. Be precise."},
+          {label:"You're being dismissive.", result:"wrong",
+           response:"Name the move. I took a reasonable skeptical position and inflated it into something absurd, then attacked that inflated version. What's that called?"},
+        ]
+      },
+      {
+        bot:"AI is the NEW paradigm. The new always beats the old. Whoever adapts first wins — you either go all-in on AI or you die. That's history.",
+        hint:"Two moves stacked — newness, and a binary choice.",
+        options:[
+          {label:"Appeal to novelty plus a false dilemma — 'new = better' AND 'all-in or die.'", result:"correct",
+           response:"You caught both. Nicely done. That's the round — debrief coming."},
+          {label:"Appeal to novelty — 'new' doesn't mean better.", result:"partial",
+           response:"Right on novelty. But there's a second move: I also made it binary — all-in or die. That's also a false dilemma. Call out both."},
+          {label:"False dilemma — it's not all-in or die.", result:"partial",
+           response:"Right on the false dilemma. There's also a second move: I treated 'new' as automatically 'better.' That's appeal to novelty. Both are planted here."},
+        ]
+      }
+    ]
+  }
+];
+
+/* ============================================================
+   DATA: Steel man prompts
+   ============================================================ */
+const STEEL_MAN_TOPICS = [
+  {
+    id:"sm-retail",
+    position:"Brick-and-mortar retail is dead — the future is online-only.",
+    weakHits:[
+      "Online has lower overhead and higher scalability.",
+      "Consumer behavior has shifted permanently post-pandemic.",
+      "Physical space is just a cost center most brands don't need."
+    ],
+    strongCase:"The strongest version of the 'online-only' argument isn't 'physical stores are dying.' It's this: for most brands below a certain scale, the operational and opportunity cost of running physical retail outweighs the margin lift from in-person sales and brand experience. Physical stores are powerful, but only at specific inflection points — when a brand needs to solidify regional identity, drive local word-of-mouth, or acquire customers who won't trust a digital-only seller. For brands that don't fit those needs precisely, the labor, real estate, insurance, and theft costs compound against a single location's visible revenue, while the more defensible work of building a durable ecommerce funnel goes under-invested. So the steel-manned claim is: physical retail is a lever, not a default — and most brands treat it like a default, which is the real mistake.",
+    stillHolds:[
+      "Brand-driven retail with deep local identity (like Dirty Coast) can still get disproportionate value from physical space — the steel-man leaves room for that.",
+      "Physical stores can be net customer-acquisition engines when they're tied to neighborhood culture, not just SKU distribution.",
+      "Online-only brands have higher CAC every year as paid channels saturate — the 'cheaper to scale' assumption is getting weaker."
+    ]
+  },
+  {
+    id:"sm-ai-creative",
+    position:"AI-generated content will replace most human creative work.",
+    weakHits:[
+      "AI can do rough drafts fast.",
+      "A lot of creative work is formulaic anyway.",
+      "Big companies will switch for cost reasons."
+    ],
+    strongCase:"The strongest form of this argument isn't 'creativity is dead.' It's that a significant share of commercial creative work — not art, not deep editorial, but operational content (product descriptions, ad variants, social captions, stock imagery, basic graphic production) — is already being done in workflows where a skilled operator with AI tools produces more output at higher speed than a human-only team. Over a multi-year window, the economic gravity pulls most of that commodity work toward AI-assisted pipelines. What's replaced isn't creativity — it's the junior-to-mid-tier execution layer of creative work. The senior strategy, brand thinking, and distinctive creative direction remain human (and become MORE valuable), but the apprenticeship pipeline that used to produce those seniors gets partially gutted. That's the real claim worth arguing with.",
+    stillHolds:[
+      "The 'apprenticeship gutting' problem is a real concern even in the steel-manned version, but it doesn't say human creative work disappears — it says a layer gets reshaped.",
+      "Distinctive brand voice and cultural fluency are exactly what AI commodifies slowest — a New Orleans-rooted brand is in a stronger position than a generic DTC brand.",
+      "The argument, properly framed, is about labor structure, not about whether humans can make good things. Those are different debates."
+    ]
+  },
+  {
+    id:"sm-technical",
+    position:"Technical analysis in trading is just astrology for finance bros.",
+    weakHits:[
+      "Charts are subjective.",
+      "If TA worked, everyone would be rich.",
+      "Fundamentals are what actually matter."
+    ],
+    strongCase:"The strongest case against TA isn't 'patterns are fake.' It's that most retail technical analysis conflates two different kinds of signals: actual market microstructure (order flow, liquidity clusters, institutional positioning at key levels) and visual pattern-matching (head-and-shoulders, pennants, Fibonacci retracements) that lacks evidence of edge in repeated testing. The microstructure signal is real but hard for retail to access at scale. The visual-pattern signal has been tested exhaustively and shown to produce results indistinguishable from noise once you control for trend-following and momentum (which are distinct effects). So retail TA is a mix of one real thing and a lot of ritual — and because practitioners can't reliably separate them, the net effect for most traders is similar to astrology: post-hoc pattern fitting that feels meaningful and doesn't produce an edge.",
+    stillHolds:[
+      "The real component (order flow, positioning, liquidity levels) is still useful — the steel-man accepts that. It's not a total dismissal.",
+      "Trend-following and momentum ARE separate, testable effects — so disciplined traders can isolate those from pattern drawing.",
+      "The critique's strength is directed at visual ritualistic TA, not at systematic market microstructure analysis. Distinguishing those in your own process is the useful work."
+    ]
+  },
+  {
+    id:"sm-tourism",
+    position:"New Orleans should prioritize tourism revenue over neighborhood character.",
+    weakHits:[
+      "Tourism pays the bills.",
+      "The city needs the revenue.",
+      "Locals benefit when the city has money."
+    ],
+    strongCase:"The strongest version of this argument isn't 'character doesn't matter.' It's that 'character' and 'tourism revenue' are not the opposing poles they're treated as. Tourism in New Orleans, at sustainable volume, is what has funded the restaurants, music venues, and festivals that give the city its character in the first place — and the civic infrastructure (transit, sanitation, public safety, schools) that keeps residents here depends on revenue streams the city can't replace locally. So the steel-manned position is: the city should maintain tourism as the economic base, but design policy — zoning, STR regulation, density, wage floors — so tourism revenue feeds back into neighborhood stability rather than eroding it. The opposing binary ('character OR money') is the actual enemy of both goals.",
+    stillHolds:[
+      "This reframing accepts the premise that policy design is what determines whether tourism reinforces or erodes character — it doesn't just say 'character doesn't matter,' so you can keep arguing for protective policy inside this frame.",
+      "The 'sustainable volume' part is load-bearing: the case collapses if unchecked tourism growth actually does outpace infrastructure and displacement mitigation.",
+      "You can hold that tourism is the base AND that specific STR / zoning / wage policies are wrong, without contradiction."
+    ]
+  },
+  {
+    id:"sm-small",
+    position:"Small brands can't compete with Amazon — so why try?",
+    weakHits:[
+      "Amazon is huge.",
+      "They have better logistics.",
+      "Price-wise, small shops can't win."
+    ],
+    strongCase:"The strongest version isn't 'small brands are doomed.' It's that small brands lose decisively whenever they try to compete on Amazon's axes — price, breadth, speed, convenience. The implicit argument is that small brands that try to match Amazon's game on Amazon's field inevitably die, while small brands that deliberately refuse those axes (and build instead on specificity, voice, physical presence, cultural rootedness, curation, community) can not only survive but actually occupy a defensible position Amazon can't replicate. So the steel-manned claim is: trying to compete with Amazon is fatal; trying to be something Amazon structurally cannot be is viable. The failure mode is small brands that think they're doing the second when they're actually doing the first.",
+    stillHolds:[
+      "This steel-manned version is actually an argument FOR running a brand like Dirty Coast — just not on the axes Amazon owns. The critique of direct competition doesn't touch identity-driven brands.",
+      "The failure-mode warning (thinking you're differentiated when you're not) is a useful diagnostic, not a reason to stop.",
+      "The real question it raises is: which axes are actually uncopyable for our brand? That's a strategic exercise worth doing anyway."
+    ]
+  }
+];
+
+/* ============================================================
+   STATE + STORAGE
+   ============================================================ */
+const STORE_KEY = "arg-train-v1";
+const state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return freshState();
+    const s = JSON.parse(raw);
+    if(!s || !s.stats) return freshState();
+    return s;
+  }catch(e){return freshState()}
+}
+function freshState(){
+  return {
+    stats:{asked:0, correct:0, partial:0, streak:0, bestStreak:0, byCat:{}, byFallacy:{}, byDiff:{beginner:{a:0,c:0},intermediate:{a:0,c:0},advanced:{a:0,c:0}}},
+    log:[],
+    seen:{quiz:[]},
+    currentQuiz:null,
+    currentSpar:null,
+  };
+}
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* ============================================================
+   TAB ROUTER
+   ============================================================ */
+function go(name){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
+  if(name==='quiz') ensureQuiz();
+  if(name==='spar') renderSparSelect();
+  if(name==='steel') renderSteelHome();
+  if(name==='ref') renderRef();
+  if(name==='stats') renderStats();
+}
+document.getElementById('tabs').addEventListener('click', e=>{
+  if(e.target.tagName==='BUTTON') go(e.target.dataset.tab);
+});
+
+/* ============================================================
+   TOP STATS
+   ============================================================ */
+function renderTopStats(){
+  document.getElementById('stAsked').textContent = state.stats.asked;
+  document.getElementById('stCorrect').textContent = state.stats.correct;
+  document.getElementById('stAcc').textContent = state.stats.asked ? Math.round(state.stats.correct/state.stats.asked*100)+'%' : '—';
+  document.getElementById('stStreak').textContent = state.stats.streak;
+}
+
+/* ============================================================
+   QUIZ ENGINE
+   ============================================================ */
+function ensureQuiz(){
+  if(!state.currentQuiz){ nextQuiz(); }
+  renderQuiz();
+}
+function nextQuiz(){
+  const diff = document.getElementById('qDiff').value;
+  const dom = document.getElementById('qDom').value;
+  let pool = QUIZ.filter(q=>{
+    if(diff!=="all" && q.diff!==diff) return false;
+    if(dom!=="all" && q.dom!==dom) return false;
+    return true;
+  });
+  // prefer unseen
+  const unseen = pool.filter(q=>!state.seen.quiz.includes(q.id));
+  const candidates = unseen.length ? unseen : pool;
+  if(!candidates.length){ state.currentQuiz=null; saveState(); return; }
+  const pick = candidates[Math.floor(Math.random()*candidates.length)];
+  state.currentQuiz = {id:pick.id, answered:false, picked:[], ok:null};
+  saveState();
+}
+function fallacyByName(slug){
+  return FALLACIES.find(f=>f.slug===slug) || {name:slug, category:"—"};
+}
+function renderQuiz(){
+  const z = document.getElementById('qZone');
+  if(!state.currentQuiz){
+    z.innerHTML = `<p>No questions match. Try <button class="btn small" onclick="document.getElementById('qDiff').value='all';document.getElementById('qDom').value='all';nextQuiz();renderQuiz()">Reset filters</button>.</p>`;
+    return;
+  }
+  const q = QUIZ.find(x=>x.id===state.currentQuiz.id);
+  const cq = state.currentQuiz;
+
+  // Build choices: correct fallacy(s) + distractors + some extras, then cap at ~5
+  const pool = new Set([...q.correct, ...q.distractors]);
+  const choices = Array.from(pool).slice(0,6);
+  // stable shuffle per question id so re-render doesn't scramble
+  const rng = seeded(q.id);
+  choices.sort(()=>rng()-0.5);
+
+  const isMulti = q.correct.length>1;
+  const picked = cq.picked;
+
+  z.innerHTML = `
+    <div class="row">
+      <span class="chip">${q.diff}</span>
+      <span class="chip indigo">${q.dom}</span>
+      ${isMulti ? `<span class="chip mustard">${q.correct.length} fallacies to name</span>`:``}
+    </div>
+    <div class="argument-box">"${q.arg}"</div>
+    <p class="meta-line">Which fallacy${isMulti?"/fallacies are":" is"} at work?</p>
+    <div class="choices" id="qChoices">
+      ${choices.map((slug,i)=>{
+        const f = fallacyByName(slug);
+        let cls = "choice";
+        if(cq.answered){
+          if(q.correct.includes(slug)) cls += " correct";
+          else if(picked.includes(slug)) cls += " wrong";
+        } else if(picked.includes(slug)){
+          cls += " selected";
+        }
+        return `<button class="${cls}" data-slug="${slug}" onclick="pickChoice('${slug}')">
+          <span class="letter">${String.fromCharCode(65+i)}</span>
+          <span><b>${f.name}</b><br><span class="tiny">${f.category}</span></span>
+        </button>`;
+      }).join("")}
+    </div>
+    <div class="row" style="justify-content:space-between">
+      <div class="meta-line">${isMulti?"Select all that apply":"Pick one"} &middot; then submit</div>
+      <div class="row">
+        ${cq.answered ? `<button class="btn primary" onclick="nextQuiz();renderQuiz()">Next question →</button>`
+                      : `<button class="btn accent" onclick="submitQuiz()">Submit</button>`}
+      </div>
+    </div>
+    ${cq.answered ? renderVerdict(q, cq) : ``}
+  `;
+}
+function pickChoice(slug){
+  const cq = state.currentQuiz;
+  if(cq.answered) return;
+  const q = QUIZ.find(x=>x.id===cq.id);
+  const multi = q.correct.length>1;
+  if(multi){
+    if(cq.picked.includes(slug)) cq.picked = cq.picked.filter(s=>s!==slug);
+    else cq.picked.push(slug);
+  }else{
+    cq.picked = [slug];
+  }
+  saveState();
+  renderQuiz();
+}
+function submitQuiz(){
+  const cq = state.currentQuiz;
+  if(!cq || cq.answered) return;
+  if(!cq.picked.length) return;
+  const q = QUIZ.find(x=>x.id===cq.id);
+  const picked = new Set(cq.picked);
+  const correct = new Set(q.correct);
+  const allCorrect = [...correct].every(s=>picked.has(s));
+  const noWrong = [...picked].every(s=>correct.has(s));
+  const ok = allCorrect && noWrong ? "correct"
+          : (allCorrect || noWrong || [...picked].some(s=>correct.has(s))) ? "partial"
+          : "wrong";
+  cq.answered = true;
+  cq.ok = ok;
+
+  // stats
+  state.stats.asked++;
+  if(ok==="correct"){ state.stats.correct++; state.stats.streak++; state.stats.bestStreak=Math.max(state.stats.bestStreak,state.stats.streak); }
+  else if(ok==="partial"){ state.stats.partial++; state.stats.streak=0; }
+  else { state.stats.streak=0; }
+  state.stats.byDiff[q.diff].a++;
+  if(ok==="correct") state.stats.byDiff[q.diff].c++;
+  q.correct.forEach(slug=>{
+    const f = fallacyByName(slug);
+    state.stats.byCat[f.category] = state.stats.byCat[f.category] || {a:0,c:0};
+    state.stats.byCat[f.category].a++;
+    if(picked.has(slug)) state.stats.byCat[f.category].c++;
+    state.stats.byFallacy[slug] = state.stats.byFallacy[slug] || {a:0,c:0};
+    state.stats.byFallacy[slug].a++;
+    if(picked.has(slug)) state.stats.byFallacy[slug].c++;
+  });
+  state.seen.quiz.push(q.id);
+  if(state.seen.quiz.length>120) state.seen.quiz.shift();
+  state.log.unshift({t:Date.now(),type:"quiz",diff:q.diff,dom:q.dom,ok,picked:[...picked],correct:q.correct});
+  if(state.log.length>60) state.log.pop();
+  saveState();
+  renderTopStats();
+  renderQuiz();
+}
+function renderVerdict(q,cq){
+  const cls = cq.ok==="correct"?"correct":(cq.ok==="wrong"?"wrong":"");
+  const heading = cq.ok==="correct" ? "Nailed it."
+                 : cq.ok==="partial" ? "Partially — keep looking."
+                 : "Not quite.";
+  return `
+    <div class="verdict ${cls}">
+      <h4>${heading}</h4>
+      <p><b>Correct answer${q.correct.length>1?"s":""}:</b> ${q.correct.map(s=>fallacyByName(s).name).join(" · ")}</p>
+      <p>${q.expl}</p>
+      <div class="counter"><b>Counter-move:</b> ${q.counter}</div>
+    </div>
+  `;
+}
+// deterministic shuffle
+function seeded(n){ let s=n*9301+49297; return ()=>{ s=(s*9301+49297)%233280; return s/233280; }; }
+
+document.addEventListener('change', e=>{
+  if(e.target.id==='qDiff'||e.target.id==='qDom'){ nextQuiz(); renderQuiz(); }
+});
+document.addEventListener('click', e=>{
+  if(e.target.id==='qNew'){ nextQuiz(); renderQuiz(); }
+});
+
+/* ============================================================
+   SPARRING
+   ============================================================ */
+function renderSparSelect(){
+  document.getElementById('sparSelect').classList.remove('hidden');
+  document.getElementById('sparLive').classList.add('hidden');
+  const g = document.getElementById('sparGrid');
+  g.innerHTML = SCENARIOS.map(s=>`
+    <div class="scenario-card" onclick="startSpar('${s.id}')">
+      <h4>${s.title}</h4>
+      <p>${s.blurb}</p>
+      <div class="pill-group">${s.planted.map(p=>`<span class="chip">${fallacyByName(p).name}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+function startSpar(id){
+  const sc = SCENARIOS.find(s=>s.id===id);
+  state.currentSpar = {id, turn:0, caught:[], missed:[], log:[], done:false};
+  // add opening message
+  state.currentSpar.log.push({who:'system', text:`ROUND: ${sc.title}. ${sc.setup}`});
+  state.currentSpar.log.push({who:'bot', text: sc.turns[0].bot});
+  saveState();
+  document.getElementById('sparSelect').classList.add('hidden');
+  document.getElementById('sparLive').classList.remove('hidden');
+  renderSparLive();
+}
+function renderSparLive(){
+  const cs = state.currentSpar;
+  const sc = SCENARIOS.find(s=>s.id===cs.id);
+  document.getElementById('sparTitle').textContent = sc.title;
+  document.getElementById('sparSetup').textContent = sc.setup;
+  document.getElementById('sparProgress').textContent = cs.done ? "Round complete" : `Turn ${Math.min(cs.turn+1, sc.turns.length)} of ${sc.turns.length}`;
+  const log = document.getElementById('sparLog');
+  log.innerHTML = cs.log.map(m=>`<div class="bubble ${m.who}"><div class="who">${m.who==='bot'?'OPPONENT':(m.who==='user'?'YOU':'ROUND')}</div>${m.text}</div>`).join('');
+  log.scrollTop = log.scrollHeight;
+
+  const ctrl = document.getElementById('sparControls');
+  if(cs.done){
+    const caught = cs.caught.length;
+    const total = sc.planted.length;
+    ctrl.innerHTML = `
+      <div class="bubble system" style="align-self:stretch">
+        <div class="who">Debrief</div>
+        You caught <b>${caught} of ${total}</b> planted fallacies.
+        ${caught===total?"Clean round — you held the line through every move.":
+          caught>=total-1?"Strong round — missed one, held the rest.":
+          "Decent — a couple slipped past. Review the encyclopedia and come back."}
+        ${cs.missed.length?`<br><br><b>What slipped past:</b> ${cs.missed.map(s=>fallacyByName(s).name).join(' · ')}`:''}
+      </div>
+      <div class="flex-end">
+        <button class="btn" onclick="renderSparSelect()">Pick another round</button>
+        <button class="btn primary" onclick="startSpar('${sc.id}')">Run it again</button>
+      </div>`;
+    return;
+  }
+
+  const turn = sc.turns[cs.turn];
+  ctrl.innerHTML = `
+    <div class="meta-line">Your move — pick the response that names the fallacy:</div>
+    <div class="chat-choices">
+      ${turn.options.map((o,i)=>`<button class="chat-choice" onclick="answerSpar(${i})">${o.label}</button>`).join('')}
+    </div>
+    <div class="tiny">Hint (peek if stuck): <span id="sparHint" style="cursor:pointer;text-decoration:underline" onclick="this.innerText='${turn.hint.replace(/'/g,"\\'")}'">show hint</span></div>
+  `;
+}
+function answerSpar(optIdx){
+  const cs = state.currentSpar;
+  const sc = SCENARIOS.find(s=>s.id===cs.id);
+  const turn = sc.turns[cs.turn];
+  const opt = turn.options[optIdx];
+
+  cs.log.push({who:'user', text: opt.label});
+  cs.log.push({who:'bot', text: opt.response});
+
+  if(opt.result==='correct'){
+    cs.caught.push(sc.planted[cs.turn]);
+    state.stats.asked++;
+    state.stats.correct++;
+    state.stats.streak++;
+    state.stats.bestStreak=Math.max(state.stats.bestStreak,state.stats.streak);
+  } else if(opt.result==='partial'){
+    state.stats.asked++;
+    state.stats.partial++;
+    state.stats.streak=0;
+  } else {
+    state.stats.asked++;
+    state.stats.streak=0;
+  }
+
+  // advance
+  cs.turn++;
+  if(cs.turn >= sc.turns.length){
+    cs.done = true;
+    sc.planted.forEach((slug,i)=>{
+      if(!cs.caught.includes(slug)) cs.missed.push(slug);
+    });
+    state.log.unshift({t:Date.now(),type:"spar",scenario:sc.id,caught:cs.caught.length,total:sc.planted.length});
+    if(state.log.length>60) state.log.pop();
+  } else {
+    cs.log.push({who:'bot', text: sc.turns[cs.turn].bot});
+  }
+  saveState();
+  renderTopStats();
+  renderSparLive();
+}
+function endSpar(){
+  state.currentSpar = null;
+  saveState();
+  renderSparSelect();
+}
+
+/* ============================================================
+   STEEL MAN
+   ============================================================ */
+const smState = {topic:null, phase:0, user:""};
+function renderSteelHome(){
+  const root = document.getElementById('steelHome');
+  if(!smState.topic){
+    root.innerHTML = `
+      <p>Pick a position you disagree with. The exercise: you try to steel-man it first, then we show you the strongest version and where your disagreement still holds up.</p>
+      <div class="scenario-grid">
+        ${STEEL_MAN_TOPICS.map(t=>`
+          <div class="scenario-card" onclick="smPick('${t.id}')">
+            <h4>${t.position}</h4>
+            <p class="tiny">Click to practice</p>
+          </div>`).join('')}
+      </div>`;
+    return;
+  }
+  const t = smState.topic;
+  if(smState.phase===0){
+    root.innerHTML = `
+      <div class="argument-box">${t.position}</div>
+      <p><b>Step 1.</b> In your own words, what's the strongest case for this position? Don't be polite — make the argument as good as it can get.</p>
+      <textarea id="smUser" rows="6" style="width:100%;padding:10px;border:2px solid var(--line);font-family:Fraunces,serif;font-size:15px" placeholder="Your steel-man attempt...">${smState.user||""}</textarea>
+      <div class="flex-end" style="margin-top:10px">
+        <button class="btn ghost" onclick="smCancel()">Back</button>
+        <button class="btn primary" onclick="smSubmit()">See the strongest version</button>
+      </div>`;
+    return;
+  }
+  if(smState.phase===1){
+    root.innerHTML = `
+      <div class="argument-box">${t.position}</div>
+      <h3 class="serif">Your attempt</h3>
+      <div class="verdict" style="border-style:solid">${smState.user||"<em>No attempt recorded.</em>"}</div>
+      <h3 class="serif" style="margin-top:14px">Common weak hits people make (check if you made these):</h3>
+      <ul>${t.weakHits.map(x=>`<li>${x}</li>`).join("")}</ul>
+      <h3 class="serif" style="margin-top:14px">The steel-manned version</h3>
+      <div class="verdict correct" style="border-style:solid">${t.strongCase}</div>
+      <h3 class="serif" style="margin-top:14px">Where your original disagreement still holds up</h3>
+      <ul>${t.stillHolds.map(x=>`<li>${x}</li>`).join("")}</ul>
+      <div class="flex-end" style="margin-top:14px">
+        <button class="btn ghost" onclick="smCancel()">Pick another</button>
+      </div>`;
+  }
+}
+function smPick(id){
+  smState.topic = STEEL_MAN_TOPICS.find(t=>t.id===id);
+  smState.phase = 0;
+  smState.user = "";
+  renderSteelHome();
+}
+function smSubmit(){
+  const ta = document.getElementById('smUser');
+  smState.user = (ta && ta.value || "").trim();
+  smState.phase = 1;
+  state.log.unshift({t:Date.now(),type:"steel",topic:smState.topic.id});
+  if(state.log.length>60) state.log.pop();
+  saveState();
+  renderSteelHome();
+}
+function smCancel(){
+  smState.topic = null;
+  smState.phase = 0;
+  smState.user = "";
+  renderSteelHome();
+}
+
+/* ============================================================
+   REFERENCE
+   ============================================================ */
+function renderRef(){
+  const q = (document.getElementById('refSearch').value||"").trim().toLowerCase();
+  const cat = document.getElementById('refCat').value;
+  const list = FALLACIES.filter(f=>{
+    if(cat!=="all" && f.category!==cat) return false;
+    if(!q) return true;
+    return (f.name.toLowerCase().includes(q) || f.def.toLowerCase().includes(q) || f.example.toLowerCase().includes(q));
+  });
+  document.getElementById('refCount').textContent = `${list.length} / ${FALLACIES.length} shown`;
+  // group by category
+  const grouped = {};
+  list.forEach(f=>{ (grouped[f.category]=grouped[f.category]||[]).push(f); });
+  const g = document.getElementById('refGrid');
+  if(!list.length){ g.innerHTML = `<p>No matches.</p>`; return; }
+  g.innerHTML = CAT_ORDER.filter(c=>grouped[c]).map(c=>`
+    <div style="grid-column:1/-1"><div class="meta-line" style="margin-top:12px">${c}</div></div>
+    ${grouped[c].map(f=>`
+      <div class="fallacy-card">
+        <div class="cat">${f.category}</div>
+        <h4>${f.name}</h4>
+        <div class="def">${f.def}</div>
+        <div class="ex"><b>Example:</b> ${f.example}</div>
+        <div class="cm"><b>Counter:</b> ${f.counter}</div>
+      </div>`).join('')}
+  `).join('');
+}
+document.addEventListener('input', e=>{ if(e.target.id==='refSearch') renderRef(); });
+document.addEventListener('change', e=>{ if(e.target.id==='refCat') renderRef(); });
+
+/* ============================================================
+   STATS
+   ============================================================ */
+function renderStats(){
+  const s = state.stats;
+  const grid = document.getElementById('statsGrid');
+  grid.innerHTML = `
+    <div class="scorebox"><div class="n">${s.asked}</div><div class="l">questions asked</div></div>
+    <div class="scorebox"><div class="n">${s.correct}</div><div class="l">correct</div></div>
+    <div class="scorebox"><div class="n">${s.partial}</div><div class="l">partial</div></div>
+    <div class="scorebox"><div class="n">${s.asked?Math.round(s.correct/s.asked*100)+'%':'—'}</div><div class="l">accuracy</div></div>
+    <div class="scorebox"><div class="n">${s.streak}</div><div class="l">current streak</div></div>
+    <div class="scorebox"><div class="n">${s.bestStreak}</div><div class="l">best streak</div></div>
+  `;
+  const cat = document.getElementById('statsByCat');
+  const cats = CAT_ORDER.filter(c=>s.byCat[c]);
+  if(!cats.length){ cat.innerHTML = `<p class="tiny">No data yet — take a few questions.</p>`; }
+  else{
+    cat.innerHTML = cats.map(c=>{
+      const row = s.byCat[c];
+      const pct = row.a?Math.round(row.c/row.a*100):0;
+      return `
+        <div style="display:grid;grid-template-columns:180px 1fr 60px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed #ccc">
+          <div style="font-family:Fraunces,serif;font-weight:600">${c}</div>
+          <div style="background:#e7dec9;height:10px;position:relative;border:1px solid var(--line)">
+            <div style="background:var(--green);height:100%;width:${pct}%"></div>
+          </div>
+          <div class="mono" style="text-align:right">${row.c}/${row.a} · ${pct}%</div>
+        </div>`;
+    }).join('');
+  }
+  const recent = document.getElementById('statsRecent');
+  if(!state.log.length){ recent.innerHTML = `<p class="tiny">Nothing logged yet.</p>`; }
+  else{
+    recent.innerHTML = state.log.slice(0,15).map(e=>{
+      const d = new Date(e.t);
+      const when = d.toLocaleString();
+      if(e.type==='quiz'){
+        return `<div style="padding:8px 0;border-bottom:1px dashed #ccc;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <span><b>Quiz</b> <span class="chip">${e.diff}</span> <span class="chip indigo">${e.dom}</span> <span class="chip ${e.ok==='correct'?'green':(e.ok==='partial'?'mustard':'accent')}">${e.ok}</span></span>
+          <span class="tiny">${when}</span>
+        </div>`;
+      } else if(e.type==='spar'){
+        return `<div style="padding:8px 0;border-bottom:1px dashed #ccc;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <span><b>Sparring</b> <span class="chip indigo">${e.scenario}</span> <span class="chip green">${e.caught}/${e.total}</span></span>
+          <span class="tiny">${when}</span>
+        </div>`;
+      } else if(e.type==='steel'){
+        return `<div style="padding:8px 0;border-bottom:1px dashed #ccc;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <span><b>Steel Man</b> <span class="chip mustard">${e.topic}</span></span>
+          <span class="tiny">${when}</span>
+        </div>`;
+      }
+      return "";
+    }).join('');
+  }
+}
+document.getElementById('statsReset').addEventListener('click', ()=>{
+  if(!confirm("Reset all progress?")) return;
+  localStorage.removeItem(STORE_KEY);
+  Object.assign(state, freshState());
+  renderTopStats();
+  renderStats();
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderTopStats();
+ensureQuiz();
+renderSparSelect();
+renderSteelHome();
+renderRef();
+</script>
+</body>
+</html>
